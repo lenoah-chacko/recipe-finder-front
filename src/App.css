@@ -13,5 +13,29 @@
   text-align: center;
 }
 .box .percent svg circle:nth-child(2){
-  stroke: #cabd7d;
+  stroke: #002A32;  
+  /* spinner colour */
 }
+.inner-shadow{
+  box-shadow: inset 0 0 10px rgba(0,0,0,.2);
+}
+
+.main-logo{
+  background-image: url(../public/images/RecipeFinder.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding: 75px 135px 0 0;
+}
+
+.darkgreen{
+  background-color: #002A32;
+}
+
+/*
+  Dark yellow: #cabd7d
+  Light yellow: #fff2c2
+  Dark green: #002A32
+  Black: 000
+  White: fff
+  SOme grays
+*/

@@ -4,3 +4,34 @@
     height: 200px;
     background-color: black;
 }
+.pending-btn{
+    font-size: 1.5em;
+    background-color: #002A32;
+    padding: 35px;
+    word-wrap: break-all;
+    white-space: normal;
+}
+.pending-btn:hover{
+    background-color: #001d23;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+.pending-btn p{
+    display: table;
+    margin: auto;
+    font-family: Poppins;
+    color: white; 
+}
+#sub{
+    background-image: url("../../../../public/images/add req.png");
+}
+#edit{
+    background-image: url("../../../../public/images/edit req.png");
+}
+.req{
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 190px;
+    width: 190px;
+    display: table;
+    margin: auto auto 30px;
+}

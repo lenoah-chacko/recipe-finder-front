@@ -29,7 +29,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #999;
 }
 .box .percent .number h2{
     font-size: 48px;
@@ -38,7 +37,6 @@
 {
     margin: 0;
     padding: 10px 0 0;   
-    color: #999;
     font-weight: 700;
     letter-spacing: 1px;
 }
