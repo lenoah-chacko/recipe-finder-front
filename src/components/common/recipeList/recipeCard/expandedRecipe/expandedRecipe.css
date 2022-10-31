@@ -1,0 +1,5 @@
+.title{
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: normal;
+}

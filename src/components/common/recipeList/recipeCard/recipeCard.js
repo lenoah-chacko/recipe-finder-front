@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({id, author, dish, ingredients, lastEdited, preparation}){
+export default function RecipeCard({_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg}){
     const [ingredientCutoff,setIngredientCutoff]=useState(4)
+    const [recipe,setRecipe]=useState({"_id":"","dish":"","ingredients":[],"preparation":"","edits":[],"author":"","lastEdited":"","status":""})
     useEffect(()=>{
         function handleResize() {
             const width=window.innerWidth
@@ -28,10 +30,37 @@ export default function RecipeCard({id, author, dish, ingredients, lastEdited, p
       }
         window.addEventListener('resize', handleResize)
     },[])
+
+    function readMore(_id){
+        console.log("readMore",_id)
+        getRecipe(_id)
+    }
+    async function getRecipe(_id){
+            var request={"_id": _id,}
+            console.log("getRecipe",JSON.stringify(request))
+            const response = await fetch("http://localhost:4000/api/get-recipe", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+    })
+        await response.json().then((data)=>{
+        setRecipe(data)
+        console.log("recieved",data)
+      }).catch((error) => {
+        // Your error is here!
+        console.log("err",error)
+      });
+    }
   return (
     <div>
         <div className="card text-center">
-            <div className="tag">Veg</div>
+            <div className="tag-wrapper">
+                {veg?
+                    <div className="tag veg">Veg</div>
+                    :<div className="tag non-veg">Non-Veg</div>}
+            </div>
             <div className="card-body d-flex flex-column align-items-center">
                 <div className="list-group list-group-flush title">
                     <h5 className="card-title w-100 d-flex justify-content-center align-items-center">
@@ -42,7 +71,7 @@ export default function RecipeCard({id, author, dish, ingredients, lastEdited, p
                     
                     <div className="list-group-item">
                     <div className='row'>
-                        <div className="col">Ingredients</div>
+                        <div className="col text-muted">Ingredients</div>
                     </div>
                     <div className="row d-flex align-items-center">
                         <div className="col">
@@ -62,11 +91,16 @@ export default function RecipeCard({id, author, dish, ingredients, lastEdited, p
                     </div>
                     
                     </div>
+                    <div className="list-group-item mt-1">
+                        <div className="row">
+                            <div className="col text-muted">Preparation Time: {prepTime}</div>
+                        </div>                        
+                    </div>
                     <div className="list-group-item mt-1 card-text">
                         <div className="preparation">
                             {preparation}
                         </div>
-                        <div className='btn btn-dark darksgreen mt-3'>Read more</div>
+                        <div className='btn btn-dark darksgreen mt-3' onClick={()=>readMore(_id)} data-toggle="modal" data-target={"#recipeModal"+_id}>Read more</div>
                     </div>
                 </div>
             </div>
@@ -74,6 +108,8 @@ export default function RecipeCard({id, author, dish, ingredients, lastEdited, p
                 Updated on {lastEdited} by {author}
             </div>
         </div>
+        {/* Modal */}
+        <ExpandedRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg}></ExpandedRecipe>
     </div>
   )
 }

@@ -1,10 +1,5 @@
-.tag{
-    background-color: rgb(54, 147, 49);
-    color: white;
-    position: absolute;
-    top: 25px;
-    right: -20px;
-    padding: 10px 25px;
+.tag-wrapper{
+    z-index: 1;
 }
 .tag::before{
     content: "";
@@ -14,9 +9,28 @@
     top:-50%;
     transform: rotate(180deg);
     border-top: 20px solid transparent;
-    border-right: 20px solid rgb(40, 116, 36);
     border-bottom: 20px solid transparent;
     z-index: -1;
+}
+.tag{
+    color: white;
+    position: absolute;
+    top: 25px;
+    right: -20px;
+}
+.tag.non-veg::before{
+    border-right: 20px solid rgb(144, 10, 10);
+}
+.tag.non-veg{
+    background-color: rgb(184, 21, 21);
+    padding: 10px 12px;
+}
+.tag.veg::before{
+    border-right: 20px solid rgb(40, 116, 36);
+}
+.tag.veg{
+    background-color: rgb(54, 147, 49);
+    padding: 10px 25px;
 }
 .card::before{
     content: "";
