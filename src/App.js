@@ -1,8 +1,7 @@
 import './App.css';
 import { useState } from 'react';
-import Dashboard from './components/admin/dashboard/dashboard';
-import AllRecipes from './components/common/allRecipes/allRecipes';
 import Navbar from './components/common/navbar/navbar';
+import Login from './components/admin/login/Login';
 
 function App() {
   return (
