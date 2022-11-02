@@ -53,9 +53,7 @@ export default function SearchByIngredients() {
         <form>
             <div className="row">
                 <div className="col-12 mb-3">
-                    <div className="search">
-
-                        <div className="row mb-3">
+                <div className="row mb-3">
                             <div className="col">
 {/* fix alignment buha */}
                             {ingredients.length>0&&
@@ -71,6 +69,7 @@ export default function SearchByIngredients() {
 
                             </div>
                         </div>
+                    <div className="search">                       
 
                         <i className="fa fa-search"></i>                        
                         <input type="text" className="form-control" onChange={(e)=>handleIngredient(e)} placeholder="Enter an ingredient to search by and click Add or hit Enter" value={ingredient}/>
