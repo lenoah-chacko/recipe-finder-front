@@ -97,14 +97,14 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                                     {ingredients.length > 0 ?
                                         ingredients.length < ingredientCutoff ?
                                             ingredients.map((ingredient, i) => (
-                                                <span key={i} className="badge badge-secondary darkgreen ml-1 text-wrap">{ingredient}</span>
+                                                <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                             ))
                                             : ingredients.slice(0, ingredientCutoff).map((ingredient, i) => (
-                                                <span key={i} className="badge badge-secondary darkgreen ml-1 text-wrap">{ingredient}</span>
+                                                <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                             ))
                                         : "None specified"
                                     }
-                                    {ingredients.length > ingredientCutoff && <span className="badge badge-secondary darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
+                                    {ingredients.length > ingredientCutoff && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>

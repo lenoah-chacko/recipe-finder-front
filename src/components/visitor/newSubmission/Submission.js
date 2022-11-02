@@ -1,6 +1,6 @@
 import React from 'react'
 import './Submission.css'
-import { MDBBtn, MDBRadio, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 
 export default function Submission() {
@@ -35,12 +35,13 @@ export default function Submission() {
 
     function addIngredient(e){    
         console.log("event",e.type,"key",e.key)
-        if(e.type=="click" || e.type=="keydown" && e.key == 'Enter')
+        if(e.type==="click" || (e.type==="keydown" && e.key === 'Enter'))
         {
             setIngredients([...ingredients,ingredient])
             setIngredient("")
         }
     }
+    
     function removeIngredient(id){     
         setIngredients(ingredients.slice(0,id).concat(ingredients.slice(id+1))); // 2nd parameter means remove one item only
         console.log(id," deleted")
@@ -49,6 +50,7 @@ export default function Submission() {
     function submit(){
         addRecipe({
             "dish":title,
+            "author":author,
             "ingredients":ingredients,
             "preparation":preparation,
             "veg":true,
@@ -57,7 +59,7 @@ export default function Submission() {
     }
     async function addRecipe(req){
         console.log("adding",req)
-        const response = await fetch("http://localhost:4000/api/add-request",{
+        const response = await fetch("http://localhost:3000/api/add-request",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -65,6 +67,7 @@ export default function Submission() {
             body: JSON.stringify(req)
         })
         const data=await response.json()
+        // add a success toaster buha
     }
       
   return (
