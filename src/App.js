@@ -6,6 +6,8 @@ import AllRecipes from './components/common/allRecipes/allRecipes';
 import Login from './components/admin/login/login'
 import Submission from './components/visitor/newSubmission/Submission'
 import VisitorSearchResults from './components/visitor/visitorSearch/visitorSearchResults';
+import AddRequests from './components/admin/pendingRequests/addRequests'
+import EditRequests from './components/admin/pendingRequests/editRequests'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path='/find' element={<VisitorSearch/>}></Route>
         <Route path='/' element={ <Navigate to='/find'></Navigate> }></Route>
         <Route path='/search' element={<VisitorSearchResults/>}></Route>
+        <Route path='/add-requests' element={<AddRequests/>}/>
+        <Route path='/edit-requests' element={<EditRequests/>}/>
       </Routes>
     </div>
   );
