@@ -9,7 +9,7 @@ export default function VisitorSearchResults() {
   const [form,setForm]=useSearchParams()
   useEffect(()=>{
       search({"dish":form.get("dish"),"matchcase":form.get("matchcase")=='true',"matchword":form.get("matchword")=='true'})
-  },[])
+  },[form])
 
   async function search(req){
     console.log("search",req)
@@ -29,11 +29,14 @@ export default function VisitorSearchResults() {
     <div>
         <div id="foundRecipes" className="jumbotron">
           <div className="px-5">
-              <h1 className="display-4">
-                <div className="btn btn-warning mr-4 p-2 back fs-2" onClick={()=>{navigate(-1)}}>
-                  <i className='fa fa-arrow-left'></i>
+              <h1 className="display-4 row">
+                <div className="back">
+                  <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate('/find')}}>
+                    <i className='fa fa-arrow-left'></i>
+                  </div>
                 </div>
-                Recipes Found
+                <div className='col d-block'>Recipes Found</div>
+                
               </h1>
 
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>

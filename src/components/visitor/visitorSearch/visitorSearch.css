@@ -67,4 +67,7 @@ width: 110px;
     margin-left: auto;
     margin-right: auto;
   }
-  
+  .back{
+    -ms-flex: 0 0 10px;
+    flex: 0 0 10px;
+  }

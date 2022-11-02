@@ -27,7 +27,7 @@ return (
     <div className='height'>
         <div className="container">
             <div className="row d-flex justify-content-center">
-                <div className="col-md-8">
+                <div className="col-md-8 mt-5">
                 <div className="search-logo"></div>
                     <form>
                         <div className="search">

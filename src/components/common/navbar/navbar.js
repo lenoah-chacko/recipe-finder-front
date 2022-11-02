@@ -1,7 +1,21 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Navbar() {
+  const navigate=useNavigate()
+  const [form,setForm]=useState({"dish":"","matchcase":false,"matchword":false})
+
+function handleForm(e){
+    console.log(e)
+    setForm({...form,"dish":e.target.value})
+}
+function handleSearch(e){
+  e.preventDefault()
+  console.log("gonna search",form)
+  navigate(`/search?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+  setForm({"dish":"","matchcase":false,"matchword":false})
+}
   return (
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
   <NavLink className="navbar-brand" to='/'>
@@ -28,7 +42,7 @@ export default function Navbar() {
       <li className="nav-item">
         <NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
                                                             :"nav-link"}}>
-          Suggest a recipe
+          Suggest a Recipe
         </NavLink>
       </li>
     </ul>
@@ -40,9 +54,9 @@ export default function Navbar() {
       </div>
   </div>
   <div className="d-none d-lg-block">
-      <form className=" form-inline my-2 my-lg-0">
-        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+      <form className=" form-inline my-2 my-lg-0" onSubmit={(e)=>{handleSearch(e)}}>
+        <input className="form-control mr-sm-2" onChange={(e)=>{handleForm(e)}} value={form.dish} placeholder="Search"/>
+          <div className="btn btn-outline-warning my-2 my-sm-0" onClick={(e)=>{handleSearch(e)}}>Search</div>
       </form>
   </div>
 </nav>
