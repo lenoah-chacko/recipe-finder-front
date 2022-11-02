@@ -38,7 +38,7 @@ export default function RecipeCard({_id, author, dish, ingredients, lastEdited, 
     async function getRecipe(_id){
             var request={"_id": _id,}
             console.log("getRecipe",JSON.stringify(request))
-            const response = await fetch("http://localhost:4000/api/get-recipe", {
+            const response = await fetch("http://localhost:3000/api/get-recipe", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,14 +78,14 @@ export default function RecipeCard({_id, author, dish, ingredients, lastEdited, 
                         {ingredients.length>0?
                                                 ingredients.length<ingredientCutoff?
                                                                             ingredients.map((ingredient,i)=>(
-                                                                                <span key={i} className="badge badge-secondary darkgreen ml-1 text-wrap">{ingredient}</span>
+                                                                                <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                                                             ))
                                                                             : ingredients.slice(0, ingredientCutoff).map((ingredient,i) => (
-                                                                                <span key={i} className="badge badge-secondary darkgreen ml-1 text-wrap">{ingredient}</span>
+                                                                                <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                                                             )) 
                                                 :"None specified"
                         }
-                        {ingredients.length>ingredientCutoff && <span className="badge badge-secondary darkgreen ml-1">+{ingredients.length-ingredientCutoff} more</span>}
+                        {ingredients.length>ingredientCutoff && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length-ingredientCutoff} more</span>}
                         {}
                         </div>                    
                     </div>
@@ -100,7 +100,7 @@ export default function RecipeCard({_id, author, dish, ingredients, lastEdited, 
                         <div className="preparation">
                             {preparation}
                         </div>
-                        <div className='btn btn-dark darksgreen mt-3' onClick={()=>readMore(_id)} data-toggle="modal" data-target={"#recipeModal"+_id}>Read more</div>
+                        <div className='btn btn-dark darksgreen mt-3' style={{backgroundColor:"#262626"}} onClick={()=>readMore(_id)} data-toggle="modal" data-target={"#recipeModal"+_id}>Read more</div>
                     </div>
                 </div>
             </div>

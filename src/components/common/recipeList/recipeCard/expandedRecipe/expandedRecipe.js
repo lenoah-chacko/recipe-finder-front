@@ -12,8 +12,8 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                         <div className="title p-0">
                             {dish}
                                 {veg?
-                                    <span className="badge badge-success ml-2">Veg</span>
-                                    :<span className="badge badge-danger ml-2">Non-Veg</span>}
+                                    <span className="badge ml-2" style={{backgroundColor:"#3a8925"}}>Veg</span>
+                                    :<span className="badge ml-2" style={{backgroundColor:"#C7181B"}}>Non-Veg</span>}
                         </div>
                         
                     </h5>
@@ -30,7 +30,7 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                                     <div className="col">
                                     {ingredients.length>0?
                                                             ingredients.map((ingredient,i)=>(
-                                                                <span key={i} className="badge badge-secondary darkgreen ml-1 text-wrap">{ingredient}</span>
+                                                                <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                                             ))
                                                             :"None specified"
                                     }
@@ -55,8 +55,8 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                         on
                         <span className='font-italic'> {lastEdited} </span>
                     </span>
-                    <button type="button" className="btn btn-secondary darkgreen" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
+                    <button type="button" className="btn btn-dark darkgreen" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-info" style={{backgroundColor:"#18A4C7"}} data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
                 </div>
                 </div>
             </div>
