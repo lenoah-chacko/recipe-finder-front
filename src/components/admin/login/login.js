@@ -25,10 +25,10 @@ export default function Login() {
     
                     <div className="fs-2 fw-lighter mt-4 text-center">Login</div>
   
-                    <div class="fs-5 mt-5 mb-2 fw-bold">Username</div>
+                    <div className="fs-5 mt-5 mb-2 fw-bold">Username</div>
                     <MDBInput wrapperClass='mb-4' label='Username' type='username' size="lg"/>
  
-                    <div class="fs-5 mb-2 fw-bold">Password</div>
+                    <div className="fs-5 mb-2 fw-bold">Password</div>
                     <MDBInput wrapperClass='mb-4' label='Password' type='password' size="lg"/>
     
                     <div className="text-center"><MDBBtn className="mt-4 px-5" color='dark' size='lg'>Login</MDBBtn></div>

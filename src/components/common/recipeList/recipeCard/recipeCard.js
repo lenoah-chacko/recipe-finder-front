@@ -9,22 +9,22 @@ export default function RecipeCard({_id, author, dish, ingredients, lastEdited, 
     useEffect(()=>{
         function handleResize() {
             const width=window.innerWidth
-            console.log("width=",width)
+            //console.log("width=",width)
             if (width<1300 && width>800){
                 setIngredientCutoff(4)
-                console.log("Cutoff set to 4")
+                //console.log("Cutoff set to 4")
             }
             else if(width<800 && width>600){
                 setIngredientCutoff(3)
-                console.log("Cutoff set to 3")
+                //console.log("Cutoff set to 3")
             }
             else if(width<600){
                 setIngredientCutoff(2)
-                console.log("Cutoff set to 2")
+                //console.log("Cutoff set to 2")
             }
             else{
                 setIngredientCutoff(5)
-                console.log("Cutoff set to 5")
+                //console.log("Cutoff set to 5")
             }
           
       }

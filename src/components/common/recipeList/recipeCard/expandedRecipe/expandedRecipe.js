@@ -6,12 +6,12 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
             <div className="modal-header">
-                <h5 id={"recipeModalLabel"+_id} class="modal-title w-100">
-                    <div class="title p-0">
+                <h5 id={"recipeModalLabel"+_id} className="modal-title w-100">
+                    <div className="title p-0">
                         {dish}
                             {veg?
-                                <span class="badge badge-success ml-2">Veg</span>
-                                :<span class="badge badge-danger ml-2">Non-Veg</span>}
+                                <span className="badge badge-success ml-2">Veg</span>
+                                :<span className="badge badge-danger ml-2">Non-Veg</span>}
                     </div>
                     
                 </h5>

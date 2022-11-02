@@ -25,29 +25,29 @@ export default function Submission() {
     
                     <div className="fs-3 fw-lighter text-center">Add a Recipe</div>
                     
-                    <div class="mb-2 mt-4 fw-bold">Author</div>
+                    <div className="mb-2 mt-4 fw-bold">Author</div>
                     <MDBInput wrapperClass='mb-4' id='formControlLg' type='author' size="lg"/>
  
-                    <div class="mb-2 fw-bold">Title</div>
+                    <div className="mb-2 fw-bold">Title</div>
                     <MDBInput wrapperClass='mb-4' id='formControlLg' type='title' size="lg"/>
                     <div className='mb-2'>
                         <div className="mr-5 d-inline">
-                            <input class="radio mr-1" type="radio" name="food_type" value="veg" />
-                            <label class="radio-inline" for="flexRadioDefault1">
+                            <input className="radio mr-1" type="radio" name="food_type" value="veg" />
+                            <label className="radio-inline" for="flexRadioDefault1">
                                 Veg
                             </label>
                         </div>
                         <div className="d-inline">
-                            <input class="radio mr-1" type="radio" name="food_type" value="non_veg" />
-                            <label class="radio-inline" for="flexRadioDefault2">
+                            <input className="radio mr-1" type="radio" name="food_type" value="non_veg" />
+                            <label className="radio-inline" for="flexRadioDefault2">
                                 Non-Veg
                             </label>
                         </div>
                     </div>
-                    <div class="mb-2 fw-bold">Ingredients</div>
+                    <div className="mb-2 fw-bold">Ingredients</div>
                     <MDBTextArea rows={2} />
 
-                    <div class="mb-2 mt-4 fw-bold">Preparation</div>
+                    <div className="mb-2 mt-4 fw-bold">Preparation</div>
                     <MDBTextArea rows={3} />
 
                     <div className='d-flex flex-row mt-2'></div>

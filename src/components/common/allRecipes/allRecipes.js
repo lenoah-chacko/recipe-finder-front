@@ -1,6 +1,8 @@
 import React from 'react'
 import RecipeList from '../recipeList/recipeList'
 import './allRecipes.css'
+import { useState,useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function AllRecipes() {
   const [recipes,setRecipes]=useState([])
@@ -117,12 +119,14 @@ export default function AllRecipes() {
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>          
               <div className="lead">
                     <div className='mb-3 d-inline-block'>Search for a specific recipe instead</div>
-                    <a className="btn btn-success btn-lg ml-3" href="#" role="button">Go to our Search Engine</a>
+                    <Link className="btn btn-warning btn-lg ml-3" to='/'>
+                        Go to our Search Engine
+                    </Link>
               </div>
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes}></RecipeList>
+            <RecipeList recipes={recipes} search={false}></RecipeList>
         </div>
         
     </div>

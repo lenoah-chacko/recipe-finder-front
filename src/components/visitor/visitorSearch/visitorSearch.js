@@ -1,11 +1,11 @@
-import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './visitorSearch.css'
 
 export default function VisitorSearch() {
 
+const navigate= useNavigate()
 const [form,setForm]=useState({"dish":"","matchcase":false,"matchword":false})
-const [searchResults,setSearchResults]=useState([])
 function handleDish(e){
     console.log(e)
     setForm({...form,"dish":e.target.value})
@@ -20,27 +20,13 @@ function handleWord(e){
 }
 function handleSearch(e){
     e.preventDefault()
-    console.log("search",form)
-    search(form)
+    console.log("gonna search",form)
+    navigate(`/search?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
 }
-async function search(req){
-    console.log("search",req)
-    const response = await fetch("http://localhost:4000/api/search-dish",{
-        method:"POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(req)
-    })
-    await response.json().then((data)=>{
-    setSearchResults(data)
-    console.log(data)
-  })
-}
-  return (
+return (
     <div className='height'>
         <div className="container">
-            <div className="row d-flex justify-content-center mt-5">
+            <div className="row d-flex justify-content-center">
                 <div className="col-md-8">
                 <div className="search-logo"></div>
                     <form>
