@@ -1,9 +1,9 @@
 import './spinner.css'
 import { SpinnerStyle } from './spinnercss';
 
-export default function Spinner({percent,caption}) {
+export default function Spinner({numerator,denominator,caption}) {
   return (
-    <SpinnerStyle percent={percent}>
+    <SpinnerStyle numerator={numerator} denominator={denominator}>
       <div className="box">
         <div className="percent">
           <svg>
@@ -11,7 +11,7 @@ export default function Spinner({percent,caption}) {
             <circle cx="70" cy="70" r="70"></circle>
           </svg>
           <div className="number">
-            <h2>{percent}
+            <h2>{numerator}
             </h2>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Spinner from './spinner/spinner';
 import Number from './number/number';
 import './dashboard.css'
@@ -6,6 +6,18 @@ import { Graph } from './graph/graph';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
+    const [stats,setStats]=useState({"ApprovedRecipes":0,"NewContributionsThisMonth":0,"TotalContributions":0,"PendingSubmissions":0,"PendingEdits":0})
+    async function getStats(){
+        console.log("getting data")
+          const response = await fetch("http://localhost:4000/api/admin/get-stats")
+          await response.json().then((data)=>{            
+          console.log("got",data)
+          setStats(data)
+        })
+      }
+      useEffect(()=>{
+        getStats()
+      },[])
   return (
     <div>
         <div className="container-fluid p-3">
@@ -14,21 +26,21 @@ export default function Dashboard() {
                     <div className="inner-shadow d-flex flex-column p-4 h-100 justify-content-center">
                             <div className="row align-items-center">
                                 <div className="col mb-3">
-                                    <Spinner percent={20} caption={"Approved Recipes"}></Spinner>
+                                    <Spinner numerator={stats.ApprovedRecipes} denominator={stats.TotalContributions} caption={"Approved Recipes"}></Spinner>
                                 </div>
                                 <div className="col mb-3">
-                                    <Spinner percent={90} caption={"New Contributions this month"}></Spinner>
+                                    <Spinner numerator={stats.NewContributionsThisMonth} denominator={stats.TotalContributions} caption={"New Contributions in the last 0 days"}></Spinner>
                                 </div>
                             </div>
                             <div className="row align-items-center">
                                 <div className="col mb-3">
-                                    <Number number={150} caption={"Total contributions"}></Number>
+                                    <Number number={stats.TotalContributions} caption={"Total contributions"}></Number>
                                 </div>
                                 <div className="col mb-3">
-                                    <Number number={20} caption={"Pending submissions"}></Number>
+                                    <Number number={stats.PendingSubmissions} caption={"Pending submissions"}></Number>
                                 </div>
                                 <div className="col mb-3">
-                                    <Number number={15} caption={"Pending edits"}></Number>
+                                    <Number number={stats.PendingEdits} caption={"Pending edits"}></Number>
                                 </div>
                             </div>
                     </div>
