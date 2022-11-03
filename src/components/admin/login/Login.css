@@ -1,32 +1,19 @@
 @media (min-width: 992px) {
-  .bg {
-      background-color: #FFE8E6;
+  #loginBg {
       min-height: 90vh; 
       /* scroll exists because of this ^ */
     }  
-}
-@media (max-width: 991.98px) {
-  .bg {
-      background-image: url('../../../../public/images/Submission.jpeg');
-      height: 100%;
-      width: 100%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      position: relative;
-      z-index: 0;
-  }
 }
 
 .card::before{
   display: none;
 }
 
-.image{
-  background-image: url('../../../../public/images/Submission.jpeg');
-  height: 100%;
+#loginImage{
+  background-image: url('../../../../public/images/LoginClear.png');
+  height: 80%;
   width: 100%;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
