@@ -1,9 +1,7 @@
 import React from 'react'
-import Logo from './Login3.png'
 import './Login.css'
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
-import { Form } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
+import { useState } from 'react';
 
 export default function Login() {
     const [showPassWarning, setShowPassWarning] = useState(false);
@@ -46,7 +44,7 @@ export default function Login() {
         })
         const data = await response.json();
         console.log(data)
-        if (data.auth && (data.auth==true)) {
+        if (data.auth && (data.auth===true)) {
             setInvalidCred(false);
             localStorage.setItem("token", data.token);
         }
@@ -57,25 +55,20 @@ export default function Login() {
 
     //add user input validation buha
     return (
-        <MDBContainer>
-            <div className='d-flex mt-5'></div>
-            <div className='d-flex mt-5'></div>
-            <MDBContainer className='mt-5'>
-
-                <MDBCard shadow="5" className='mt-5'>
-
-                    <MDBRow className='g-0'>
-
-                        <MDBCol md='6'>
-                            <MDBCardImage src={Logo} alt="login form" width='610' height='550' className='rounded-start' />
-                        </MDBCol>
-
-                        <MDBCol md='6'>
+        <>
+    <div id="loginBg" className='container-fluid d-flex flex-grow-1 flex-column'>
+        <div className="row d-flex flex-grow-1">
+            <div className="col-12 col-lg-6 d-flex flex-column justify-content-center">
+                <div id="loginImage" className="d-none d-lg-block my-auto"></div>
+            </div>
+            <div className="col-12 col-lg-6 p-3">
+                <MDBContainer className='p-3 h-100 d-flex flex-column justify-content-center'>
+                            <MDBCard className='mh-75 d-flex flex-column justify-content-center py-3 px-5'>
+                            <MDBRow className='g-0'>
                             <MDBCardBody className='d-flex flex-column'>
                                 <form>
-                                    <div className='d-flex flex-row mt-3'></div>
 
-                                    <div className="fs-2 fw-lighter mt-4 text-center">Login</div>
+                                    <div className="fs-2 fw-lighter text-center">Login</div>
 
                                     <div className="fs-5 mt-5 mb-2 fw-bold">Username</div>
                                     <MDBInput wrapperClass='mb-4' label='Username' type='username' onChange={handleChangeUsername} value={valueUsername} size="lg" />
@@ -87,17 +80,36 @@ export default function Login() {
                                     {invalidCred && <div className="alert alert-danger" role="alert">
                                         Incorrect Email/Password
                                     </div>}
-                                    <div className="text-center"><MDBBtn className="mt-4 px-5" color='dark' size='lg' onClick={submit}>Login</MDBBtn></div>
+                                    <div className="text-center"><MDBBtn className="mt-4 px-5" color='warning text-dark' size='xl' onClick={submit}>Login</MDBBtn></div>
                                     <div className="form-row">
                                     </div>
                                 </form>
                             </MDBCardBody>
-                        </MDBCol>
 
                     </MDBRow>
+                    </MDBCard>
+                </MDBContainer>
+            </div>
+        </div>
+        </div>
+        <div className="doodles"></div>
+        </>        
+    );
+}
+
+/* 
+
+<MDBContainer>
+            <div className='d-flex mt-5'></div>
+            <div className='d-flex mt-5'></div>
+            <MDBContainer className='mt-5'>
+
+                <MDBCard shadow="5" className='mt-5'>
+
+                    
                 </MDBCard>
             </MDBContainer>
         </MDBContainer>
-    );
-}
+
+*/
 

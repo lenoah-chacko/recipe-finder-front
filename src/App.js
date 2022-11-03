@@ -15,6 +15,9 @@ import NotFound from './components/common/notFound/notFound'
 import ProtectedRoutes from './components/admin/authServices/protectedRoutes'
 import { useEffect, useState } from 'react';
 import AuthService from './components/admin/authServices/authService';
+import Dashboard from './components/admin/dashboard/dashboard';
+import EditRequestExpanded from './components/admin/pendingRequests/editRequestExpanded/editRequestExpanded';
+
 
 
 function App() { 
@@ -40,6 +43,16 @@ function App() {
           <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
         </Route>
         <Route path='*' element={<NotFound />}></Route>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/pending'>
+          <Route path='submissions' element={<AddRequests/>}/>
+          <Route path='edits'>
+            <Route index element={<EditRequests/>}/>
+            <Route path=':id' element={<EditRequestExpanded/>}/>
+          </Route>
+          
+        </Route>
+
       </Routes>
     </div >
   );

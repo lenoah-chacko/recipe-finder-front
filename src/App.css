@@ -39,3 +39,6 @@
   White: fff
   SOme grays
 */
+.list-group-item:hover{
+  background-color: transparent;
+}

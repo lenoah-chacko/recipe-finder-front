@@ -2,6 +2,8 @@ import React from 'react'
 import './Submission.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Submission() {
     const [ingredients,setIngredients]=useState([])
@@ -66,9 +68,18 @@ export default function Submission() {
             },
             body: JSON.stringify(req)
         })
-        await response.json()
-        // add a success toaster buha
+        await response.json().then((data)=>{
+            showToastMessage()
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
+    function showToastMessage(){
+        console.log("success")
+        toast.success('Recipe request submitted successfully!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
       
   return (
     <>
@@ -147,6 +158,7 @@ export default function Submission() {
             </div>
         </div>
         </div>
+        <ToastContainer />
         </>
   )
 }

@@ -18,6 +18,11 @@ export default function AddRequests() {
       });
     }
 
+    function removeAddRecipe(_id){
+        console.log("removeAddRecipe",_id)
+        setRecipes(recipes.filter((recipe)=>{return recipe._id!==_id}))
+    }
+
     // async function getAddRequests() {
     //     const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
     //         method: "POST",
@@ -43,7 +48,9 @@ export default function AddRequests() {
                 </div>
             </div>
             <div className='container-fluid'>
-                <RecipeList recipes={recipes} type={"addRequest"}></RecipeList>
+                <RecipeList removeAddRecipe={removeAddRecipe}
+                            recipes={recipes}
+                            type={"addRequest"}/>
             </div>
         </div>
     )

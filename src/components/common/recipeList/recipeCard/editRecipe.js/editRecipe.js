@@ -55,7 +55,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
     }
 
     function submit(){
-        const req = {"_id":_id, "dish":dish, "ingredients":_ingredients ,"preparation":_prepTime ,"author":_author , "veg":_veg}
+        const req = {"_id":_id, "dish":dish, "ingredients":_ingredients ,"preparation":_preparation,"prepTime":_prepTime ,"author":_author , "veg":_veg}
         suggestEdit(req)
     }
     
@@ -74,11 +74,11 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
     }
   
     return (
-    <div className="modal fade" id={"editRecipeModal"+_id} tabIndex="-1" role="dialog" aria-labelledby={"editRecipeModal"+_id} aria-hidden="true">
+    <div className="modal fade" id={"editRecipeModal"+_id} tabIndex="-1" role="dialog">
         <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
             <div className="modal-header">
-                <h5 id={"editRecipeModal"+_id} className="modal-title w-100">
+                <h5 id={"editRecipeModalTitle"+_id} className="modal-title w-100">
                     <div className="title p-0">
                         {dish}
                             {veg?
@@ -166,7 +166,6 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
                 </span>
                 <button type="button" className="btn btn-dark darkgreen" data-dismiss="modal">Close</button>
                 <button type="button" className="btn btn-warning text-dark darkgreen" data-dismiss="modal" onClick={()=>{submit()}}>Submit</button>
-                {/* <button type="button" className="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button> */}
             </div>
             </div>
         </div>

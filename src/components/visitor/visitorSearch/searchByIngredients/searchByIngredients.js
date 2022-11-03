@@ -55,7 +55,6 @@ export default function SearchByIngredients() {
                 <div className="col-12 mb-3">
                 <div className="row mb-3">
                             <div className="col">
-{/* fix alignment buha */}
                             {ingredients.length>0&&
                                                     ingredients.map((ingredient,id)=>(
                                                                                     <div key={id} className="badge rounded-pill bg-warning py-1 px-2 text-dark mr-1 mb-1">

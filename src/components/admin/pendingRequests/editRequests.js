@@ -13,8 +13,13 @@ export default function EditRequests() {
             'Content-Type': 'application/json'
         },
     })
-    const data = await response.json()
-    setRecipes(data)
+    await response.json().then((data) => {
+      setRecipes(data)
+      console.log("recieved", data)
+  }).catch((error) => {
+      // Your error is here!
+      console.log("err", error)
+  });
 }
 
   useEffect(()=>{

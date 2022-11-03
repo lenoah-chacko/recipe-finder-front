@@ -23,9 +23,15 @@
 }
 #sub{
     background-image: url("../../../../public/images/add req.png");
+    background-position: center;
 }
 #edit{
     background-image: url("../../../../public/images/edit req.png");
+    background-position: center;
+}
+.pending-text{
+    font-family: Poppins;
+    color: white;
 }
 .req{
     background-repeat: no-repeat;

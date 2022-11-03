@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
     useEffect(() => {
         function handleResize() {
@@ -50,7 +50,7 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
 
     return (
         <div>
-            <div className="card text-center">
+            <div className="card corner-logo text-center">
                 <div className="tag-wrapper">
                     {veg ?
                         <div className="tag veg">Veg</div>
@@ -70,7 +70,7 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                             </div>
                             <div className="row d-flex align-items-center">
                                 <div className="col">
-                                    {ingredients.length > 0 ?
+                                    {(!!ingredients&&ingredients.length > 0) ?
                                         ingredients.length < ingredientCutoff ?
                                             ingredients.map((ingredient, i) => (
                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
@@ -80,7 +80,7 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                                             ))
                                         : "None specified"
                                     }
-                                    {ingredients.length > ingredientCutoff && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
+                                    {(!!ingredients&&ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>
@@ -105,7 +105,22 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                 </div>
             </div>
             {/* Modal */}
-            <ExpandedRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} type={type}></ExpandedRecipe>
+            <ExpandedRecipe showEditSuccessToastMessage={showEditSuccessToastMessage}
+                            showEditRejectionToastMessage={showEditRejectionToastMessage}
+                            showAddSuccessToastMessage={showAddSuccessToastMessage}
+                            showAddRejectionToastMessage={showAddRejectionToastMessage}
+                            removeAddRecipe={removeAddRecipe}
+                            removeEditRecipe={removeEditRecipe}
+                            org_id={org_id}
+                            _id={_id}
+                            author={author}
+                            dish={dish}
+                            ingredients={ingredients}
+                            lastEdited={lastEdited}
+                            preparation={preparation}
+                            prepTime={prepTime}
+                            veg={veg}
+                            type={type}/>
         </div>
     )
 }

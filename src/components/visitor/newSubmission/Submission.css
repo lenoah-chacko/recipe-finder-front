@@ -18,10 +18,6 @@
   }
 }
 
-.card::before{
-  display: none;
-}
-
 .image{
   background-image: url('../../../../public/images/Submission.jpeg');
   height: 100%;
