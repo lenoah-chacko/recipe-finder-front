@@ -60,7 +60,7 @@ export default function TitleSearchResults() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} search={true}></RecipeList>
+            <RecipeList recipes={recipes} type={"search"}></RecipeList>
         </div>
     </div>
   )

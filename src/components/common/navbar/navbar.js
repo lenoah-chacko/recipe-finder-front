@@ -13,7 +13,7 @@ function handleForm(e){
 function handleSearch(e){
   e.preventDefault()
   console.log("gonna search",form)
-  navigate(`/search?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+  navigate(`/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
   setForm({"dish":"","matchcase":false,"matchword":false})
 }
   return (
@@ -43,6 +43,12 @@ function handleSearch(e){
         <NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
                                                             :"nav-link"}}>
           Suggest a Recipe
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink to='/dashboard' className={({isActive})=>{return isActive?"nav-link active"
+                                                            :"nav-link"}}>
+          Dashboard
         </NavLink>
       </li>
     </ul>

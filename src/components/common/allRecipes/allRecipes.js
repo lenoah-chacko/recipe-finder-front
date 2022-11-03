@@ -127,7 +127,7 @@ export default function AllRecipes() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} search={false}></RecipeList>
+            <RecipeList recipes={recipes} type={1}></RecipeList>
         </div>
         
     </div>
