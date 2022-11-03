@@ -68,7 +68,7 @@ export default function Submission() {
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             showToastMessage()
         }).catch((err)=>{
             console.log(err)
@@ -135,7 +135,7 @@ export default function Submission() {
                                 <MDBInput id="ingredientsInput" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4' value={ingredient}/>
                                 </div>
                                 <div className="col-md-2 col-8 mx-auto mb-4">
-                                    <div className="btn btn-warning w-100" onClick={(e)=>{addIngredient(e)}}>Add</div>
+                                    <div className="btn btn-warning text-dark w-100" onClick={(e)=>{addIngredient(e)}}>Add</div>
                                 </div>
                             </div>
                             <div className="mb-2 fw-bold">Preparation Time</div>
@@ -146,7 +146,7 @@ export default function Submission() {
                             <div className="row">
                                 <div className="col-10 mx-auto">
                                     <div className="text-center">
-                                        <MDBBtn className="mt-4 px-4 w-100" color='warning' onClick={()=>{submit()}}>
+                                        <MDBBtn className="mt-4 px-4 w-100" color='warning text-dark' onClick={()=>{submit()}}>
                                             Submit
                                         </MDBBtn>
                                         </div>

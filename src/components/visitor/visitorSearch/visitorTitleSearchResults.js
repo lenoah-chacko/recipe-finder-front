@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import RecipeList from '../../../common/recipeList/recipeList'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import RecipeList from '../../common/recipeList/recipeList'
 
-export default function IngredientsSearchResults() {
+export default function TitleSearchResults() {
   const navigate=useNavigate()
-  const location=useLocation()
   const [recipes,setRecipes]=useState([])
-  const [form,setForm]=useSearchParams()
-  const [ingredients,setIngredients]=useState([])
+  const [searchParams,setSearchParams]=useSearchParams()
   useEffect(()=>{
-    var numOfIngredients=[...form.keys()].length-2;
-    var ingredients=[]
-    for (let ind = 0; ind < numOfIngredients; ind++) {
-      const ingredient = ingredients.push(form.get('ingredient'+ind));
-    }
-    setIngredients(ingredients);
-      search({"ingredients":ingredients,"matchcase":form.get("matchcase")==='true',"matchword":form.get("matchword")==='true'})
-  },[form])
+      search({"dish":searchParams.get("dish"),"matchcase":searchParams.get("matchcase")==='true',"matchword":searchParams.get("matchword")==='true'})
+  },[searchParams])
 
   async function search(req){
     console.log("search",req)
-    const response = await fetch("http://localhost:4000/api/search-ingredients",{
+    const response = await fetch("http://localhost:4000/api/search-dish",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +30,7 @@ export default function IngredientsSearchResults() {
           <div className="px-5">
               <h1 className="display-4 row">
                 <div className="back">
-                  <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate('/find',{ state:{"title":false}})}}>
+                  <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate('/find')}}>
                     <i className='fa fa-arrow-left'></i>
                   </div>
                 </div>
@@ -48,17 +40,15 @@ export default function IngredientsSearchResults() {
 
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>
               <div className="lead">
-                Recipes with  {ingredients.length>0&&
-                                                    ingredients.map((ingredient,id)=>(<span className='font-weight-bold'>"{ingredient}" {(id<ingredients.length-1)&&", "} </span> ))
-                              }
+                Recipes with <span className='font-weight-bold'>"{searchParams.get("dish")}"</span>
                 <div className="row">
-                  {form.get("matchcase")==="true"&&
+                  {searchParams.get("matchcase")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Case
                     </div>
                   }
-                  {form.get("matchword")==="true"&&
+                  {searchParams.get("matchword")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Word
@@ -69,7 +59,7 @@ export default function IngredientsSearchResults() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} search={true}></RecipeList>
+            <RecipeList recipes={recipes} type={"search"}></RecipeList>
         </div>
     </div>
   )

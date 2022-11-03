@@ -31,14 +31,24 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
         }
         window.addEventListener('resize', handleResize)
     }, [])
-    useEffect(() => {
-        console.log("RecipeCard", {org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type})
-    }, [org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type])
-
-    function readMore(_id) {
-        console.log("readMore", _id)
+    async function seeEdits(_id) {
+        var request = { "_id": _id }
+        const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+        await response.json().then((data) => {
+            // setRecipe(data)
+            //push to another page
+            console.log("recieved", data)
+        }).catch((error) => {
+            // Your error is here!
+            console.log("err", error)
+        });
     }
-    
 
     return (
         <div>
@@ -87,8 +97,8 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
                             <div className="preparation">
                                 {preparation}
                             </div>
-                            {(type != "editRequest") && <div className='btn btn-dark darksgreen mt-3' onClick={() => readMore(_id)} data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
-                            {(type == "editRequest") && <div className='btn btn-dark darksgreen mt-3' onClick={() => navigate(`/pending/edits/${_id}`)}>See Edits</div>}
+                            {type !== "editRequest" && <div className='btn btn-dark darksgreen mt-3' data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
+                            {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
                         </div>
                     </div>
                 </div>

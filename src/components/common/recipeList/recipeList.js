@@ -59,10 +59,10 @@ export default function RecipeList({removeAddRecipe,removeEditRecipe,recipes,typ
                                           showAddRejectionToastMessage={showAddRejectionToastMessage}></RecipeCard>
                                     </div>
                                   ))
-                                  :type=="all"?<h4 className='mx-auto text-center'>No recipes added yet</h4>
-                                  :type=="search"?<h4 className='mx-auto text-center'>No recipes found</h4>
-                                  :type=="addRequest"?<h4 className='mx-auto text-center'>No pending add requests</h4>
-                                  :type=="editRequest"?<h4 className='mx-auto text-center'>No pending edit requests</h4>
+                                  :type==="all"?<h4 className='mx-auto text-center'>No recipes added yet</h4>
+                                  :type==="search"?<h4 className='mx-auto text-center'>No recipes found</h4>
+                                  :type==="addRequest"?<h4 className='mx-auto text-center'>No pending add requests</h4>
+                                  :type==="editRequest"?<h4 className='mx-auto text-center'>No pending edit requests</h4>
                                   :type=="editsOnly"&&<h4 className='mx-auto text-center'>No pending edits</h4>}
             </div>
         </div>

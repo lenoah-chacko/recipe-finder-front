@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react' // rfc shortcut
 import Logo from './Login3.png'
 import './Login.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
@@ -48,7 +48,6 @@ export default function Login() {
         console.log(data)
         if (data.auth && (data.auth==true)) {
             setInvalidCred(false);
-            localStorage.setItem("auth", data.auth);
             localStorage.setItem("token", data.token);
         }
         else {

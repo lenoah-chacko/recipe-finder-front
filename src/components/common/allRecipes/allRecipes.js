@@ -119,10 +119,18 @@ export default function AllRecipes() {
               <p className="lead">List of all recipes approved by RecipeFinder©</p>
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>          
               <div className="lead">
-                    <div className='mb-3 d-inline-block'>Search for a specific recipe instead</div>
-                    <Link className="btn btn-warning btn-lg ml-3" to='/'>
-                        Go to our Search Engine
-                    </Link>
+                <div className="row">
+                    <div className='col-auto mb-3 mb-md-0 mx-auto d-flex flex-column'>
+                        <span className='my-auto'>
+                            Search for a specific recipe instead
+                        </span>
+                    </div>
+                    <div className='col'>
+                        <Link className="btn btn-warning btn-lg ml-3" to='/'>
+                            Go to our Search Engine
+                        </Link>
+                    </div>
+                </div>
               </div>
           </div>
         </div>
