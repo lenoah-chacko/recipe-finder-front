@@ -11,6 +11,7 @@ import EditRequests from './components/admin/pendingRequests/editRequests'
 import VisitorTitleSearchResults from './components/visitor/visitorSearch/visitorTitleSearchResults';
 import VisitorIngredientsSearchResults from './components/visitor/visitorSearch/searchByIngredients/visitorIngredientsSearchResults';
 import AdminTitleSearchResults from './components/admin/adminSearch/adminTitleSearchResults';
+import NotFound from './components/common/notFound/notFound'
 
 
 
@@ -35,9 +36,11 @@ function App() {
           : <Route path='/search'>
             <Route path='title' element={<AdminTitleSearchResults/>}></Route>
           </Route>}
+        <Route path='*' element={<NotFound/>}></Route>
       </Routes>
     </div>
   );
 }
 
 export default App;
+

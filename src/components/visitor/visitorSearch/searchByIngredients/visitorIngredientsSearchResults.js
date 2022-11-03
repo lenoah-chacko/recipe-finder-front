@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import RecipeList from '../../../common/recipeList/recipeList'
 
 export default function IngredientsSearchResults() {
   const navigate=useNavigate()
-  const location=useLocation()
   const [recipes,setRecipes]=useState([])
-  const [form,setForm]=useSearchParams()
+  const [searchParams,setSearchParams]=useSearchParams()
   const [ingredients,setIngredients]=useState([])
   useEffect(()=>{
-    var numOfIngredients=[...form.keys()].length-2;
+    var numOfIngredients=[...searchParams.keys()].length-2;
     var ingredients=[]
     for (let ind = 0; ind < numOfIngredients; ind++) {
-      const ingredient = ingredients.push(form.get('ingredient'+ind));
+      ingredients.push(searchParams.get('ingredient'+ind));
     }
     setIngredients(ingredients);
-      search({"ingredients":ingredients,"matchcase":form.get("matchcase")==='true',"matchword":form.get("matchword")==='true'})
-  },[form])
+      search({"ingredients":ingredients,"matchcase":searchParams.get("matchcase")==='true',"matchword":searchParams.get("matchword")==='true'})
+  },[searchParams])
 
   async function search(req){
     console.log("search",req)
@@ -52,13 +51,13 @@ export default function IngredientsSearchResults() {
                                                     ingredients.map((ingredient,id)=>(<span className='font-weight-bold'>"{ingredient}" {(id<ingredients.length-1)&&", "} </span> ))
                               }
                 <div className="row">
-                  {form.get("matchcase")==="true"&&
+                  {searchParams.get("matchcase")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Case
                     </div>
                   }
-                  {form.get("matchword")==="true"&&
+                  {searchParams.get("matchword")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Word

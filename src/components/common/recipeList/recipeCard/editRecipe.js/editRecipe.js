@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
 import '../expandedRecipe/expandedRecipe.css'
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
+import { MDBInput } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 
 export default function EditRecipe({_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg}) {
-    const [newRecipe,setNewRecipe]=useState({"_id":_id, "dish":dish, "ingredients":ingredients ,"preparation":prepTime ,"edits":lastEdited ,"author":author , "status":veg})
     const [ingredient,setIngredient]=useState("")
     const [_author,setAuthor]=useState(author)
     const [_ingredients,setIngredients]=useState(ingredients)
@@ -41,7 +39,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
     }
     function addIngredient(e){    
         console.log("event",e.type,"key",e.key)
-        if(e.type=="click" || e.type=="keydown" && e.key == 'Enter')
+        if(e.type==="click" || (e.type==="keydown" && e.key === 'Enter'))
         {
             handleIngredients([...ingredients,ingredient])
             setIngredient("")
@@ -70,7 +68,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             console.log(data)
         })  
     }
@@ -144,7 +142,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
                                         <MDBInput id="ingredientsInput" className="form-control" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4' value={ingredient}/>
                                         </div>
                                         <div className="col-md-2 col-8 mx-auto mb-4">
-                                            <div className="btn btn-warning" onClick={(e)=>{addIngredient(e)}}>Add</div>
+                                            <div className="btn btn-warning text-dark" onClick={(e)=>{addIngredient(e)}}>Add</div>
                                         </div>
                                 </div>
                         </div>
@@ -167,7 +165,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
                     <span className='font-italic'> {lastEdited} </span>
                 </span>
                 <button type="button" className="btn btn-dark darkgreen" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-warning darkgreen" data-dismiss="modal" onClick={()=>{submit()}}>Submit</button>
+                <button type="button" className="btn btn-warning text-dark darkgreen" data-dismiss="modal" onClick={()=>{submit()}}>Submit</button>
                 {/* <button type="button" className="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button> */}
             </div>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react' // rfc shortcut
+import React from 'react'
 import Logo from './Login3.png'
 import './Login.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import RecipeList from '../../common/recipeList/recipeList'
 
 export default function TitleSearchResults() {
   const navigate=useNavigate()
-  const location=useLocation()
   const [recipes,setRecipes]=useState([])
-  const [form,setForm]=useSearchParams()
+  const [searchParams,setSearchParams]=useSearchParams()
   useEffect(()=>{
-      search({"dish":form.get("dish"),"matchcase":form.get("matchcase")==='true',"matchword":form.get("matchword")==='true'})
-  },[form])
+      search({"dish":searchParams.get("dish"),"matchcase":searchParams.get("matchcase")==='true',"matchword":searchParams.get("matchword")==='true'})
+  },[searchParams])
 
   async function search(req){
     console.log("search",req)
@@ -41,15 +40,15 @@ export default function TitleSearchResults() {
 
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>
               <div className="lead">
-                Recipes with <span className='font-weight-bold'>"{form.get("dish")}"</span>
+                Recipes with <span className='font-weight-bold'>"{searchParams.get("dish")}"</span>
                 <div className="row">
-                  {form.get("matchcase")==="true"&&
+                  {searchParams.get("matchcase")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Case
                     </div>
                   }
-                  {form.get("matchword")==="true"&&
+                  {searchParams.get("matchword")==="true"&&
                     <div className='col-12 text-muted fs-6'>
                       <i className='fa fa-check text-success mr-2'></i>
                       Matching Word

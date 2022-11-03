@@ -5,7 +5,6 @@ import './recipeCard.css'
 
 export default function RecipeCard({ _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
-    const [recipe, setRecipe] = useState({ "_id": "", "dish": "", "ingredients": [], "preparation": "", "edits": [], "author": "", "lastEdited": "", "status": "" })
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth
@@ -30,29 +29,6 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
         }
         window.addEventListener('resize', handleResize)
     }, [])
-
-    function readMore(_id) {
-        console.log("readMore", _id)
-        getRecipe(_id)
-    }
-    async function getRecipe(_id) {
-        var request = { "_id": _id, }
-        console.log("getRecipe", JSON.stringify(request))
-        const response = await fetch("http://localhost:4000/api/get-recipe", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(request)
-        })
-        await response.json().then((data) => {
-            setRecipe(data)
-            console.log("recieved", data)
-        }).catch((error) => {
-            // Your error is here!
-            console.log("err", error)
-        });
-    }
     async function seeEdits(_id) {
         var request = { "_id": _id }
         const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
@@ -119,8 +95,8 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                             <div className="preparation">
                                 {preparation}
                             </div>
-                            {type != "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => readMore(_id)} data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
-                            {type == "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
+                            {type !== "editRequest" && <div className='btn btn-dark darksgreen mt-3' data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
+                            {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
                         </div>
                     </div>
                 </div>
