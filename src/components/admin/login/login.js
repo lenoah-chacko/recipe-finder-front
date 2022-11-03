@@ -1,9 +1,8 @@
 import React from 'react'
 import Logo from './Login3.png'
 import './Login.css'
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
-import { Form } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
+import { useState } from 'react';
 
 export default function Login() {
     const [showPassWarning, setShowPassWarning] = useState(false);
@@ -46,7 +45,7 @@ export default function Login() {
         })
         const data = await response.json();
         console.log(data)
-        if (data.auth && (data.auth==true)) {
+        if (data.auth && (data.auth===true)) {
             setInvalidCred(false);
             localStorage.setItem("auth", data.auth);
             localStorage.setItem("token", data.token);

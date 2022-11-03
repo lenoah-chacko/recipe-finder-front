@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
 export default function RecipeCard({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
-    const navigate= useNavigate()
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth

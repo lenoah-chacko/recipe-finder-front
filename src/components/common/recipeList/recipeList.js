@@ -2,7 +2,7 @@ import RecipeCard from './recipeCard/recipeCard'
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react'
 
-export default function RecipeList({removeAddRecipe,removeEditRecipe,recipes,type,originalRecipe, showEditSuccessToastMessage, showEditRejectionToastMessage}) {
+export default function RecipeList({removeAddRecipe,removeEditRecipe,recipes,type,originalRecipe}) {
 
     useEffect(() => {
         console.log("RecipeList",recipes,originalRecipe)
@@ -63,7 +63,7 @@ export default function RecipeList({removeAddRecipe,removeEditRecipe,recipes,typ
                                   :type==="search"?<h4 className='mx-auto text-center'>No recipes found</h4>
                                   :type==="addRequest"?<h4 className='mx-auto text-center'>No pending add requests</h4>
                                   :type==="editRequest"?<h4 className='mx-auto text-center'>No pending edit requests</h4>
-                                  :type=="editsOnly"&&<h4 className='mx-auto text-center'>No pending edits</h4>}
+                                  :type==="editsOnly"&&<h4 className='mx-auto text-center'>No pending edits</h4>}
             </div>
         </div>
         <ToastContainer />

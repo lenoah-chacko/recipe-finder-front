@@ -3,14 +3,9 @@ import './expandedRecipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage,removeAddRecipe,removeEditRecipe,org_id,_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type}) {
-    useEffect(() => {
-        console.log("ExpandedRecipe",{org_id,_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type})
-    }, [])
-    function clickedSuggest(_id) {
-        console.log("editRecipeModal"+ _id)
-    }
+    
     function accept(){
-        if(type=="addRequest"){
+        if(type==="addRequest"){
             approveAddRecipe({"_id":_id})
             removeAddRecipe(_id)
         }
@@ -28,7 +23,7 @@ export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejec
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             console.log("approved",data)
             showAddSuccessToastMessage()
         })
@@ -42,14 +37,14 @@ export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejec
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             console.log("approved edit",data)
             showEditSuccessToastMessage()
         })
     }
     function reject(){
         console.log("rejecting...")
-        if(type=="addRequest"){
+        if(type==="addRequest"){
             rejectAddRequest({"_id":_id})
             removeAddRecipe(_id)
         }
@@ -67,7 +62,7 @@ export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejec
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             console.log("removed",data)
             showAddRejectionToastMessage()
         })
@@ -81,7 +76,7 @@ export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejec
             },
             body: JSON.stringify(req)
         })
-        const data=await response.json().then((data)=>{
+        await response.json().then((data)=>{
             console.log("removed",data)
             showEditRejectionToastMessage()
         })

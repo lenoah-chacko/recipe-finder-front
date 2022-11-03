@@ -10,10 +10,6 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
     const [_prepTime,setPrepTime]=useState(prepTime)
     const [_veg,setVeg]=useState(veg)
 
-    useEffect(() => {
-        console.log("EditRecipe",{_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg})
-    }, [])
-
     function handleAuthor(e){
         console.log(e.target.value)
         setAuthor(e.target.value)
