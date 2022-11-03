@@ -7,6 +7,7 @@ import Login from './components/admin/login/login'
 import Submission from './components/visitor/newSubmission/Submission'
 import TitleSearchResults from './components/visitor/visitorSearch/titleSearchResults';
 import IngredientsSearchResults from './components/visitor/visitorSearch/searchByIngredients/ingredientsSearchResults';
+import NotFound from './components/common/notFound/notFound'
 
 function App() {
   return (
@@ -22,9 +23,11 @@ function App() {
           <Route path='title' element={<TitleSearchResults/>}></Route>
           <Route path='ingredients' element={<IngredientsSearchResults/>}></Route>
         </Route>
+        <Route path='*' element={<NotFound/>}></Route>
       </Routes>
     </div>
   );
 }
 
 export default App;
+
