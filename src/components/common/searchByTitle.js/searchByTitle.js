@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SearchByTitle() {
+export default function SearchByTitle({admin=false}) {
     const navigate= useNavigate()
     const [form,setForm]=useState({"dish":"","matchcase":false,"matchword":false})
     function handleDish(e){
@@ -20,7 +20,8 @@ export default function SearchByTitle() {
     function handleSearch(e){
         e.preventDefault()
         console.log("gonna search",form)
-        navigate(`/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+        {admin?navigate(`/admin/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+        :navigate(`/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)}
     }
   return (
         <form>

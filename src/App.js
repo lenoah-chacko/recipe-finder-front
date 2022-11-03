@@ -12,33 +12,36 @@ import VisitorTitleSearchResults from './components/visitor/visitorSearch/visito
 import VisitorIngredientsSearchResults from './components/visitor/visitorSearch/searchByIngredients/visitorIngredientsSearchResults';
 import AdminTitleSearchResults from './components/admin/adminSearch/adminTitleSearchResults';
 import NotFound from './components/common/notFound/notFound'
+import ProtectedRoutes from './components/admin/authServices/protectedRoutes'
+import { useEffect, useState } from 'react';
+import AuthService from './components/admin/authServices/authService';
 
 
-
-let visitor= false;
-function App() {
+function App() { 
   return (
     <div className="App">
       <Navbar></Navbar>
       <Routes>
-        <Route path='/login' element={<Login />}></Route>
+        <Route element={<ProtectedRoutes/>}>
+          <Route path='/admin/find' element={<AdminSearch/>}></Route>
+          <Route path='/admin/search'>
+            <Route path='title' element={<AdminTitleSearchResults />}></Route>
+          </Route>
+          <Route path='/admin/add-requests' element={<AddRequests />} />
+          <Route path='/admin/edit-requests' element={<EditRequests />} />
+        </Route>
         <Route path='/add-recipe' element={<Submission />}></Route>
+        <Route path='/login' element={<Login />}></Route>
         <Route path='/all-recipes' element={<AllRecipes />}></Route>
         <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
-        <Route path='/add-requests' element={<AddRequests />} />
-        <Route path='/edit-requests' element={<EditRequests />} />
-        {visitor? <Route path='/find' element={<VisitorSearch />}></Route>
-          : <Route path='/find' element={<AdminSearch />}></Route>}
-        {visitor? <Route path='/search'>
+        <Route path='/find' element={<VisitorSearch />}></Route>
+        <Route path='/search'>
           <Route path='title' element={<VisitorTitleSearchResults />}></Route>
           <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
         </Route>
-          : <Route path='/search'>
-            <Route path='title' element={<AdminTitleSearchResults/>}></Route>
-          </Route>}
-        <Route path='*' element={<NotFound/>}></Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
-    </div>
+    </div >
   );
 }
 

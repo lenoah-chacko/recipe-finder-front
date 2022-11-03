@@ -2,19 +2,32 @@ import React from 'react'
 import RecipeList from '../../common/recipeList/recipeList'
 import '../../common/allRecipes/allRecipes.css'
 import { useState, useEffect } from 'react'
+import axios from "axios";
 
 export default function AddRequests() {
     const [recipes, setRecipes] = useState([])
+
     async function getAddRequests() {
-        const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        const data = await response.json()
-        setRecipes(data)
+    const response = await axios.post('http://localhost:4000/api/admin/get-add-requests', {
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
+
+    // async function getAddRequests() {
+    //     const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
+    //         method: "POST",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     })
+    //     const data = await response.json()
+    //     setRecipes(data)
+    // }
 
     useEffect(() => {
         getAddRequests()
