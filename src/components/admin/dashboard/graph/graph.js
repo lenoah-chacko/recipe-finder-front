@@ -12,14 +12,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip
-);
+ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip);
 
 export const options = {
   responsive: true,
@@ -43,8 +36,8 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 60 })),
+      label: 'Submissions',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 5 })),
       borderColor: 'rgb(0, 42, 50)',  // line graph's line colour
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     }

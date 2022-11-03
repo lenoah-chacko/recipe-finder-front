@@ -13,7 +13,7 @@ export default function TitleSearchResults() {
 
   async function search(req){
     console.log("search",req)
-    const response = await fetch("http://localhost:3000/api/search-dish",{
+    const response = await fetch("http://localhost:4000/api/search-dish",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json'

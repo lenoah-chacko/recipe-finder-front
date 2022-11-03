@@ -1,6 +1,7 @@
 import React from 'react'
 import RecipeList from '../../common/recipeList/recipeList'
 import '../../common/allRecipes/allRecipes.css'
+import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -17,6 +18,11 @@ export default function AddRequests() {
         setRecipes(data)
     }
 
+    function removeAddRecipe(_id){
+        console.log("removeAddRecipe",_id)
+        setRecipes(recipes.filter((recipe)=>{return recipe._id!==_id}))
+    }
+
     useEffect(() => {
         getAddRequests()
     }, [])
@@ -31,7 +37,9 @@ export default function AddRequests() {
                 </div>
             </div>
             <div className='container-fluid'>
-                <RecipeList recipes={recipes} type={"addRequest"}></RecipeList>
+                <RecipeList removeAddRecipe={removeAddRecipe}
+                            recipes={recipes}
+                            type={"addRequest"}/>
             </div>
         </div>
     )

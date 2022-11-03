@@ -9,6 +9,8 @@ import AddRequests from './components/admin/pendingRequests/addRequests'
 import EditRequests from './components/admin/pendingRequests/editRequests'
 import TitleSearchResults from './components/visitor/visitorSearch/titleSearchResults';
 import IngredientsSearchResults from './components/visitor/visitorSearch/searchByIngredients/ingredientsSearchResults';
+import Dashboard from './components/admin/dashboard/dashboard';
+import EditRequestExpanded from './components/admin/pendingRequests/editRequestExpanded/editRequestExpanded';
 
 function App() {
   return (
@@ -26,6 +28,16 @@ function App() {
           <Route path='title' element={<TitleSearchResults/>}></Route>
           <Route path='ingredients' element={<IngredientsSearchResults/>}></Route>
         </Route>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/pending'>
+          <Route path='submissions' element={<AddRequests/>}/>
+          <Route path='edits'>
+            <Route index element={<EditRequests/>}/>
+            <Route path=':id' element={<EditRequestExpanded/>}/>
+          </Route>
+          
+        </Route>
+
       </Routes>
     </div>
   );

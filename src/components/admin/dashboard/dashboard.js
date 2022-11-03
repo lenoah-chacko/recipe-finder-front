@@ -3,6 +3,7 @@ import Spinner from './spinner/spinner';
 import Number from './number/number';
 import './dashboard.css'
 import { Graph } from './graph/graph';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   return (
@@ -37,25 +38,25 @@ export default function Dashboard() {
                         {/* Buttons come here */}
                         <div className="inner-shadow row p-4 h-100">
                             <div className="col-sm-12 col-md-6 col-xl-12 mb-3">
-                                <div className="btn pending-btn h-100 d-flex flex-column justify-content-center">
+                                <Link to='/pending/submissions' className="btn btn-dark pending-btn h-100 d-flex flex-column justify-content-center">
                                     <div className="row">
                                         <div id="sub" className="req" alt="" />
                                     </div>
                                     <div className="row">
-                                        <p className=''>See Pending Submission Requests</p>
+                                        <p className='pending-text fs-4'>See Pending Submission Requests</p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-sm-12 col-md-6 col-xl-12 mb-3">
-                                <div className="btn pending-btn h-100 d-flex flex-column justify-content-center">
+                                <Link to='/pending/edits' className="btn btn-dark pending-btn h-100 d-flex flex-column justify-content-center">
 
                                     <div className="row">
                                         <div id="edit" className="req" alt="" />
                                     </div>
                                     <div className="row">
-                                        <p className=''>See Pending Edit Requests</p>
+                                        <p className='pending-text fs-4'>See Pending Edit Requests</p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                 </div>

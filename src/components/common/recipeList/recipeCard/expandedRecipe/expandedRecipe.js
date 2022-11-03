@@ -1,8 +1,93 @@
 import React, { useEffect } from 'react'
 import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
-export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type}) {
-  return (
+import 'react-toastify/dist/ReactToastify.css';
+
+export default function ExpandedRecipe({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage,removeAddRecipe,removeEditRecipe,org_id,_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type}) {
+    useEffect(() => {
+        console.log("ExpandedRecipe",{org_id,_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type})
+    }, [])
+    function clickedSuggest(_id) {
+        console.log("editRecipeModal"+ _id)
+    }
+    function accept(){
+        if(type=="addRequest"){
+            approveAddRecipe({"_id":_id})
+            removeAddRecipe(_id)
+        }
+        else{
+            approveEditRequest({"_id":org_id,"editId":_id})
+            removeEditRecipe(_id)
+        }
+    }
+    async function approveAddRecipe(req){
+        console.log("adding",req)
+        const response = await fetch("http://localhost:4000/api/admin/approve-add",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data=await response.json().then((data)=>{
+            console.log("approved",data)
+            showAddSuccessToastMessage()
+        })
+    }
+    async function approveEditRequest(req){
+        console.log("adding edit",req)
+        const response = await fetch("http://localhost:4000/api/admin/approve-edit",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data=await response.json().then((data)=>{
+            console.log("approved edit",data)
+            showEditSuccessToastMessage()
+        })
+    }
+    function reject(){
+        console.log("rejecting...")
+        if(type=="addRequest"){
+            rejectAddRequest({"_id":_id})
+            removeAddRecipe(_id)
+        }
+        else{
+            rejectEditRequest({"_id":org_id,"editId":_id})
+            removeEditRecipe(_id)
+        }
+    }
+    async function rejectAddRequest(req){
+        console.log("removing add",req)
+        const response = await fetch("http://localhost:4000/api/admin/reject-add",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data=await response.json().then((data)=>{
+            console.log("removed",data)
+            showAddRejectionToastMessage()
+        })
+    }
+    async function rejectEditRequest(req){
+        console.log("removing edit",req)
+        const response = await fetch("http://localhost:4000/api/admin/reject-edit",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data=await response.json().then((data)=>{
+            console.log("removed",data)
+            showEditRejectionToastMessage()
+        })
+    }
+    return (
     <>
         <div className="modal fade" id={"recipeModal"+_id} tabIndex="-1" role="dialog" aria-labelledby={"recipeModalLabel"+_id} aria-hidden="true">
             <div className="modal-dialog modal-lg" role="document">
@@ -28,7 +113,7 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                                 <p className="text-muted">Ingredients:</p>
                                 <div className="row d-flex align-items-center">
                                     <div className="col">
-                                    {ingredients.length>0?
+                                    {!!ingredients&&ingredients.length>0?
                                                             ingredients.map((ingredient,i)=>(
                                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                                             ))
@@ -57,13 +142,12 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                     </span>
                     {(type=="all" || type=="search")&&<div>
                         <button type="button" className="btn btn-dark darkgreen" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-info" style={{backgroundColor:"#18A4C7"}} data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
+                        <button type="button" className="btn btn-info" style={{backgroundColor:"#18A4C7"}} data-dismiss="modal" data-toggle="modal" onClick={()=>{clickedSuggest(_id)}} data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
                     </div>}
-                    {(type=="addRequest" || type=="editRequest")&&<div>
-                        <button type="button" className="btn btn-secondary darkgreen mr-2" data-dismiss="modal">Accept</button>
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Reject</button>
-                    </div>}
-                    
+                    {(type=="addRequest" || type=="editsOnly")&&<div>
+                        <button type="button" className="btn btn-secondary darkgreen mr-2" onClick={()=>{accept()}} data-dismiss="modal">Accept</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>{reject()}}>Reject</button>
+                    </div>}                    
                 </div>
                 </div>
             </div>

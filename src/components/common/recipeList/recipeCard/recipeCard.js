@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
-    const [recipe, setRecipe] = useState({ "_id": "", "dish": "", "ingredients": [], "preparation": "", "edits": [], "author": "", "lastEdited": "", "status": "" })
+    const navigate= useNavigate()
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth
@@ -30,51 +31,18 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
         }
         window.addEventListener('resize', handleResize)
     }, [])
+    useEffect(() => {
+        console.log("RecipeCard", {org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type})
+    }, [org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type])
 
     function readMore(_id) {
         console.log("readMore", _id)
-        getRecipe(_id)
     }
-    async function getRecipe(_id) {
-        var request = { "_id": _id, }
-        console.log("getRecipe", JSON.stringify(request))
-        const response = await fetch("http://localhost:4000/api/get-recipe", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(request)
-        })
-        await response.json().then((data) => {
-            setRecipe(data)
-            console.log("recieved", data)
-        }).catch((error) => {
-            // Your error is here!
-            console.log("err", error)
-        });
-    }
-    async function seeEdits(_id) {
-        var request = { "_id": _id }
-        const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(request)
-        })
-        await response.json().then((data) => {
-            // setRecipe(data)
-            //push to another page
-            console.log("recieved", data)
-        }).catch((error) => {
-            // Your error is here!
-            console.log("err", error)
-        });
-    }
+    
 
     return (
         <div>
-            <div className="card text-center">
+            <div className="card corner-logo text-center">
                 <div className="tag-wrapper">
                     {veg ?
                         <div className="tag veg">Veg</div>
@@ -94,7 +62,7 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                             </div>
                             <div className="row d-flex align-items-center">
                                 <div className="col">
-                                    {ingredients.length > 0 ?
+                                    {(!!ingredients&&ingredients.length > 0) ?
                                         ingredients.length < ingredientCutoff ?
                                             ingredients.map((ingredient, i) => (
                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
@@ -104,7 +72,7 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                                             ))
                                         : "None specified"
                                     }
-                                    {ingredients.length > ingredientCutoff && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
+                                    {(!!ingredients&&ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>
@@ -119,8 +87,8 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                             <div className="preparation">
                                 {preparation}
                             </div>
-                            {type != "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => readMore(_id)} data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
-                            {type == "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
+                            {(type != "editRequest") && <div className='btn btn-dark darksgreen mt-3' onClick={() => readMore(_id)} data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
+                            {(type == "editRequest") && <div className='btn btn-dark darksgreen mt-3' onClick={() => navigate(`/pending/edits/${_id}`)}>See Edits</div>}
                         </div>
                     </div>
                 </div>
@@ -129,7 +97,22 @@ export default function RecipeCard({ _id, author, dish, ingredients, lastEdited,
                 </div>
             </div>
             {/* Modal */}
-            <ExpandedRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} type={type}></ExpandedRecipe>
+            <ExpandedRecipe showEditSuccessToastMessage={showEditSuccessToastMessage}
+                            showEditRejectionToastMessage={showEditRejectionToastMessage}
+                            showAddSuccessToastMessage={showAddSuccessToastMessage}
+                            showAddRejectionToastMessage={showAddRejectionToastMessage}
+                            removeAddRecipe={removeAddRecipe}
+                            removeEditRecipe={removeEditRecipe}
+                            org_id={org_id}
+                            _id={_id}
+                            author={author}
+                            dish={dish}
+                            ingredients={ingredients}
+                            lastEdited={lastEdited}
+                            preparation={preparation}
+                            prepTime={prepTime}
+                            veg={veg}
+                            type={type}/>
         </div>
     )
 }

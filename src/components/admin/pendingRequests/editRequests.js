@@ -2,7 +2,6 @@ import React from 'react'
 import RecipeList from '../../common/recipeList/recipeList'
 import '../../common/allRecipes/allRecipes.css'
 import { useState,useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 export default function EditRequests() {
   const [recipes,setRecipes]=useState([])
@@ -14,8 +13,13 @@ export default function EditRequests() {
             'Content-Type': 'application/json'
         },
     })
-    const data = await response.json()
-    setRecipes(data)
+    await response.json().then((data) => {
+      setRecipes(data)
+      console.log("recieved", data)
+  }).catch((error) => {
+      // Your error is here!
+      console.log("err", error)
+  });
 }
 
   useEffect(()=>{

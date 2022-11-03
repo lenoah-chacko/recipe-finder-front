@@ -105,7 +105,7 @@ export default function AllRecipes() {
   },[])
   async function getRecipes(){
     console.log("Buha")
-      const response = await fetch("http://localhost:3000/api/get-recipes")
+      const response = await fetch("http://localhost:4000/api/get-recipes")
       await response.json().then((data)=>{
       setRecipes(data)
       console.log(data)
@@ -127,7 +127,7 @@ export default function AllRecipes() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} type={1}></RecipeList>
+            <RecipeList recipes={recipes} type={"all"}></RecipeList>
         </div>
         
     </div>
