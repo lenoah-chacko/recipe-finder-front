@@ -20,18 +20,26 @@ import EditRequestExpanded from './components/admin/pendingRequests/editRequestE
 
 
 
-function App() { 
+function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
       <Routes>
-        <Route element={<ProtectedRoutes/>}>
-          <Route path='/admin/find' element={<AdminSearch/>}></Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/admin/find' element={<AdminSearch />}></Route>
           <Route path='/admin/search'>
             <Route path='title' element={<AdminTitleSearchResults />}></Route>
           </Route>
           <Route path='/admin/add-requests' element={<AddRequests />} />
           <Route path='/admin/edit-requests' element={<EditRequests />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/pending'>
+            <Route path='submissions' element={<AddRequests />} />
+            <Route path='edits'>
+              <Route index element={<EditRequests />} />
+              <Route path=':id' element={<EditRequestExpanded />} />
+            </Route>
+          </Route>
         </Route>
         <Route path='/add-recipe' element={<Submission />}></Route>
         <Route path='/login' element={<Login />}></Route>
@@ -43,16 +51,6 @@ function App() {
           <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
         </Route>
         <Route path='*' element={<NotFound />}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/pending'>
-          <Route path='submissions' element={<AddRequests/>}/>
-          <Route path='edits'>
-            <Route index element={<EditRequests/>}/>
-            <Route path=':id' element={<EditRequestExpanded/>}/>
-          </Route>
-          
-        </Route>
-
       </Routes>
     </div >
   );

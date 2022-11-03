@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
     useEffect(() => {
         function handleResize() {
@@ -31,10 +31,12 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
     }, [])
     async function seeEdits(_id) {
         var request = { "_id": _id }
+        let token = localStorage.getItem("token")
         const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': "Bearer " + token
             },
             body: JSON.stringify(request)
         })
@@ -70,7 +72,7 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
                             </div>
                             <div className="row d-flex align-items-center">
                                 <div className="col">
-                                    {(!!ingredients&&ingredients.length > 0) ?
+                                    {(!!ingredients && ingredients.length > 0) ?
                                         ingredients.length < ingredientCutoff ?
                                             ingredients.map((ingredient, i) => (
                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
@@ -80,7 +82,7 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
                                             ))
                                         : "None specified"
                                     }
-                                    {(!!ingredients&&ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
+                                    {(!!ingredients && ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>
@@ -106,21 +108,21 @@ export default function RecipeCard({showAddSuccessToastMessage, showAddRejection
             </div>
             {/* Modal */}
             <ExpandedRecipe showEditSuccessToastMessage={showEditSuccessToastMessage}
-                            showEditRejectionToastMessage={showEditRejectionToastMessage}
-                            showAddSuccessToastMessage={showAddSuccessToastMessage}
-                            showAddRejectionToastMessage={showAddRejectionToastMessage}
-                            removeAddRecipe={removeAddRecipe}
-                            removeEditRecipe={removeEditRecipe}
-                            org_id={org_id}
-                            _id={_id}
-                            author={author}
-                            dish={dish}
-                            ingredients={ingredients}
-                            lastEdited={lastEdited}
-                            preparation={preparation}
-                            prepTime={prepTime}
-                            veg={veg}
-                            type={type}/>
+                showEditRejectionToastMessage={showEditRejectionToastMessage}
+                showAddSuccessToastMessage={showAddSuccessToastMessage}
+                showAddRejectionToastMessage={showAddRejectionToastMessage}
+                removeAddRecipe={removeAddRecipe}
+                removeEditRecipe={removeEditRecipe}
+                org_id={org_id}
+                _id={_id}
+                author={author}
+                dish={dish}
+                ingredients={ingredients}
+                lastEdited={lastEdited}
+                preparation={preparation}
+                prepTime={prepTime}
+                veg={veg}
+                type={type} />
         </div>
     )
 }

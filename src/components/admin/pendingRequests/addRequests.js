@@ -2,42 +2,42 @@ import React from 'react'
 import RecipeList from '../../common/recipeList/recipeList'
 import '../../common/allRecipes/allRecipes.css'
 import { useState, useEffect } from 'react'
+import AuthHeader from '../authServices/authHeader'
 import axios from "axios";
 
 export default function AddRequests() {
     const [recipes, setRecipes] = useState([])
 
+    function removeAddRecipe(_id) {
+        console.log("removeAddRecipe", _id)
+        setRecipes(recipes.filter((recipe) => { return recipe._id !== _id }))
+    }
+
+    function acceptAddRecipe(_id) {
+        console.log("removeAddRecipe", _id)
+        setRecipes(recipes.filter((recipe) => { return recipe._id !== _id }))
+    }
+
     async function getAddRequests() {
-    const response = await axios.post('http://localhost:4000/api/admin/get-add-requests', {
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        let token=localStorage.getItem("token")
+        const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': "Bearer "+token
+            },
+        })
+        const data = await response.json()
+        setRecipes(data)
     }
-
-    function removeAddRecipe(_id){
-        console.log("removeAddRecipe",_id)
-        setRecipes(recipes.filter((recipe)=>{return recipe._id!==_id}))
-    }
-
-    // async function getAddRequests() {
-    //     const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
-    //         method: "POST",
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //     })
-    //     const data = await response.json()
-    //     setRecipes(data)
-    // }
 
     useEffect(() => {
-        getAddRequests()
+        async function asyncEffect() {
+            await getAddRequests()
+        }
+        asyncEffect()
     }, [])
-
+    
     return (
         <div>
             <div id="addRequests" className="jumbotron">
@@ -49,8 +49,8 @@ export default function AddRequests() {
             </div>
             <div className='container-fluid'>
                 <RecipeList removeAddRecipe={removeAddRecipe}
-                            recipes={recipes}
-                            type={"addRequest"}/>
+                    recipes={recipes}
+                    type={"addRequest"} />
             </div>
         </div>
     )
