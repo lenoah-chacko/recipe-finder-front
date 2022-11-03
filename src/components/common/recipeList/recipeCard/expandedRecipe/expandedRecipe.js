@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
 export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type}) {
@@ -55,11 +54,11 @@ export default function ExpandedRecipe({_id, author, dish, ingredients, lastEdit
                         on
                         <span className='font-italic'> {lastEdited} </span>
                     </span>
-                    {(type=="all" || type=="search")&&<div>
-                        <button type="button" className="btn btn-dark darkgreen" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-info" style={{backgroundColor:"#18A4C7"}} data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
+                    {(type==="all" || type==="search")&&<div>
+                        <button type="button" className="btn btn-dark darkgreen mr-2" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Suggest an Edit</button>
                     </div>}
-                    {(type=="addRequest" || type=="editRequest")&&<div>
+                    {(type==="addRequest" || type==="editRequest")&&<div>
                         <button type="button" className="btn btn-secondary darkgreen mr-2" data-dismiss="modal">Accept</button>
                         <button type="button" className="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal"+_id}>Reject</button>
                     </div>}

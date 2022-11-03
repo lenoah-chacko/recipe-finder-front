@@ -1,7 +1,7 @@
 import React from 'react'
 import Logo from './notFound.png'
 import '../../visitor/visitorSearch/visitorSearch.css'
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBCardImage, MDBRow, MDBCol} from 'mdb-react-ui-kit';
 
 export default function NotFound() {
   return (
