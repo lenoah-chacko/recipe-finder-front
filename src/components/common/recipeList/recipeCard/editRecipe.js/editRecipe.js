@@ -63,7 +63,7 @@ export default function EditRecipe({_id, author, dish, ingredients, lastEdited, 
     
     async function suggestEdit(req){
         console.log("suggesting edit",req)
-        const response = await fetch("http://localhost:3000/api/edit-request",{
+        const response = await fetch("http://localhost:4000/api/edit-request",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'

@@ -59,7 +59,7 @@ export default function Submission() {
     }
     async function addRecipe(req){
         console.log("adding",req)
-        const response = await fetch("http://localhost:3000/api/add-request",{
+        const response = await fetch("http://localhost:4000/api/add-request",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'

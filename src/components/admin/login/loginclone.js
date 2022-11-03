@@ -48,7 +48,6 @@ export default function Login() {
         console.log(data)
         if (data.auth && (data.auth==true)) {
             setInvalidCred(false);
-            localStorage.setItem("auth", data.auth);
             localStorage.setItem("token", data.token);
         }
         else {
