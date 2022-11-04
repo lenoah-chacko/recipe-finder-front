@@ -4,7 +4,7 @@ import './allRecipes.css'
 import { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function AllRecipes() {
+export default function AllRecipes({auth='true'}) {
   const [recipes,setRecipes]=useState([])
   useEffect(()=>{
       getRecipes()
@@ -135,7 +135,7 @@ export default function AllRecipes() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} type={"all"}></RecipeList>
+            <RecipeList recipes={recipes} auth={auth} type={"all"} setRecipes={setRecipes}></RecipeList>
         </div>
         
     </div>

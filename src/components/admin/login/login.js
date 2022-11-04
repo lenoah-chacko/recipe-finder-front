@@ -2,8 +2,11 @@ import React from 'react'
 import './Login.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const navigate=useNavigate()
+
     const [showPassWarning, setShowPassWarning] = useState(false);
     const [showUsernameWarning, setShowUsernameWarning] = useState(false);
 
@@ -51,6 +54,7 @@ export default function Login() {
         else {
             setInvalidCred(true);
         }
+        navigate('/dashboard')
     }
 
     //add user input validation buha

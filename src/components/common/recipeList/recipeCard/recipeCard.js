@@ -3,8 +3,25 @@ import { useState } from 'react';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, auth}) {
+
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
+
+    const [recipeTemp, setRecipeTemp] = useState(
+        {
+            author: author,
+            dish: dish,
+            ingredients: ingredients,
+            lastEdited: lastEdited,
+            preparation: preparation,
+            prepTime: prepTime,
+            veg: veg
+        }
+    )
+
+
+
+
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth
@@ -54,7 +71,7 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
         <div>
             <div className="card corner-logo text-center">
                 <div className="tag-wrapper">
-                    {veg ?
+                    {recipeTemp.veg ?
                         <div className="tag veg">Veg</div>
                         : <div className="tag non-veg">Non-Veg</div>}
                 </div>
@@ -62,7 +79,7 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                     <div className="list-group list-group-flush title">
                         <h5 className="card-title w-100 d-flex justify-content-center align-items-center">
                             <span className='title'>
-                                {dish}
+                                {recipeTemp.dish}
                             </span>
                         </h5>
 
@@ -72,9 +89,9 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                             </div>
                             <div className="row d-flex align-items-center">
                                 <div className="col">
-                                    {(!!ingredients && ingredients.length > 0) ?
-                                        ingredients.length < ingredientCutoff ?
-                                            ingredients.map((ingredient, i) => (
+                                    {(!!recipeTemp.ingredients && recipeTemp.ingredients.length > 0) ?
+                                        recipeTemp.ingredients.length < ingredientCutoff ?
+                                            recipeTemp.ingredients.map((ingredient, i) => (
                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                             ))
                                             : ingredients.slice(0, ingredientCutoff).map((ingredient, i) => (
@@ -82,7 +99,7 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                                             ))
                                         : "None specified"
                                     }
-                                    {(!!ingredients && ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
+                                    {(!!recipeTemp.ingredients && recipeTemp.ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{recipeTemp.ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>
@@ -90,12 +107,12 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                         </div>
                         <div className="list-group-item mt-1">
                             <div className="row">
-                                <div className="col text-muted">Preparation Time: {prepTime}</div>
+                                <div className="col text-muted">Preparation Time: {recipeTemp.prepTime}</div>
                             </div>
                         </div>
                         <div className="list-group-item mt-1 card-text">
                             <div className="preparation">
-                                {preparation}
+                                {recipeTemp.preparation}
                             </div>
                             {type !== "editRequest" && <div className='btn btn-dark darksgreen mt-3' data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
                             {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
@@ -103,7 +120,7 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                     </div>
                 </div>
                 <div className="card-footer text-muted">
-                    Updated on {lastEdited} by {author}
+                    Updated on {recipeTemp.lastEdited} by {recipeTemp.author}
                 </div>
             </div>
             {/* Modal */}
@@ -122,7 +139,11 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                 preparation={preparation}
                 prepTime={prepTime}
                 veg={veg}
-                type={type} />
+                type={type} 
+                auth={auth}
+                recipeTemp={recipeTemp}
+                setRecipeTemp={setRecipeTemp}
+                />
         </div>
     )
 }
