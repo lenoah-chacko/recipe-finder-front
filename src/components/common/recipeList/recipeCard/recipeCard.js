@@ -7,9 +7,9 @@ import './recipeCard.css'
 export default function RecipeCard({ auth, showDeletedToastMessage, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
     const navigate=useNavigate()
-
-
-
+    const[dateIST,setDateIST]=useState((new Date(lastEdited).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata'})))
+    
+    
 
     useEffect(() => {
         function handleResize() {
@@ -91,7 +91,7 @@ export default function RecipeCard({ auth, showDeletedToastMessage, showAddSucce
                     </div>
                 </div>
                 <div className="card-footer text-muted">
-                    Updated on {lastEdited} by {author}
+                    Updated on {dateIST} by {author}
                 </div>
             </div>
             {/* Modal */}
@@ -110,7 +110,7 @@ export default function RecipeCard({ auth, showDeletedToastMessage, showAddSucce
                 author={author}
                 dish={dish}
                 ingredients={ingredients}
-                lastEdited={lastEdited}
+                lastEdited={dateIST}
                 preparation={preparation}
                 prepTime={prepTime}
                 veg={veg}

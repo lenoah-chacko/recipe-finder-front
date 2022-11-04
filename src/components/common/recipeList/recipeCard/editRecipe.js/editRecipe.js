@@ -3,7 +3,7 @@ import { MDBInput } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 
 export default function EditRecipe(
-    { _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, auth}) {
+    {setRecipe, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, auth}) {
 
     const [ingredient, setIngredient] = useState("")
     const [_author, setAuthor] = useState(author)
@@ -67,7 +67,6 @@ export default function EditRecipe(
             suggestEdit(req)
         }
         else if (auth === "authorized") {
-            delete req.author
             submitEdit(req)
         }
     }
@@ -98,7 +97,8 @@ export default function EditRecipe(
             body: JSON.stringify(req)
         })
         await response.json().then((data) => {
-            console.log("buha",data)
+            console.log("edited",data)
+            window.location.reload()
         })
 
     }

@@ -5,10 +5,11 @@ import RecipeList from '../../common/recipeList/recipeList'
 export default function TitleSearchResults() {
   const navigate=useNavigate()
   const [recipes,setRecipes]=useState([])
+  const [currentPage,setCurrentPage]=useState(0)
   const [searchParams,setSearchParams]=useSearchParams()
   useEffect(()=>{
-      search({"dish":searchParams.get("dish"),"matchcase":searchParams.get("matchcase")==='true',"matchword":searchParams.get("matchword")==='true'})
-  },[searchParams])
+      search({"dish":searchParams.get("dish"),"matchcase":searchParams.get("matchcase")==='true',"matchword":searchParams.get("matchword")==='true',"page":currentPage})
+  },[searchParams,currentPage])
 
   async function search(req){
     console.log("search",req)
@@ -23,6 +24,20 @@ export default function TitleSearchResults() {
           setRecipes(data)
           console.log("recipes",data)
   })
+}
+function prevPage(){
+  console.log("trying")
+  if(currentPage>0){
+    console.log("decremented")
+    setCurrentPage(currentPage-1)
+  }
+}
+function nextPage(){
+  console.log("trying")
+  if(recipes.length>0){
+    console.log("incremented")
+    setCurrentPage(currentPage+1)
+  }
 }
   return (
     <div>
@@ -59,6 +74,21 @@ export default function TitleSearchResults() {
           </div>
         </div>
         <div className='container-fluid'>
+        <nav className='d-flex justify-content-center' aria-label="Page navigation">
+              <ul class="pagination">
+                  <li class="page-item">
+                  <a class="page-link" onClick={()=>{prevPage()}} aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" >Page {currentPage+1}</a></li>
+                  <li class="page-item">
+                  <a class="page-link" onClick={()=>{nextPage()}} aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                  </a>
+                  </li>
+              </ul>
+            </nav>
             <RecipeList recipes={recipes} type={"search"}></RecipeList>
         </div>
     </div>

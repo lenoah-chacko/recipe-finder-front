@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../visitor/visitorSearch/visitorSearch.css'
+import Logo from './notFound.png'
 import { MDBContainer, MDBCardImage, MDBRow, MDBCol} from 'mdb-react-ui-kit';
 
 export default function NotFound() {
@@ -12,7 +13,7 @@ export default function NotFound() {
             <MDBRow width="100" className="g-1 d-flex justify-content-center">
 
             <MDBCol md='6' className="d-flex justify-content-center">
-                <MDBCardImage src="images/notFound.png" alt="404 not found" width='540' height='520' className='img-fluid rounded-start'/>
+                <MDBCardImage src={Logo} alt="404 not found" width='540' height='520' className='img-fluid rounded-start'/>
             </MDBCol>
 
             <MDBCol md='5'>

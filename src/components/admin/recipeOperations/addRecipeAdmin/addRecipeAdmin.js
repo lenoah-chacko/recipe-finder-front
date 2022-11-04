@@ -53,6 +53,11 @@ export default function AdminAddRecipe() {
             "veg":true,
             "prepTime":prepTime
         })
+        setIngredients([])
+        setIngredient("")
+        setTitle("")
+        setPreparation("")
+        setPrepTime("")
     }
     async function addRecipe(req){
         // console.log("adding",req)
@@ -92,7 +97,7 @@ export default function AdminAddRecipe() {
                             <div className="d-flex flex-row mt-3"></div>
                             <div className="fs-3 fw-lighter text-center">Add a Recipe</div>                           
                             <div className="mb-2 fw-bold">Title</div>
-                            <MDBInput id="titleInput" onChange={(e)=>{handleTitle(e)}} placeholder="Dish's name" wrapperClass='mb-4' type='title' size="lg"/>
+                            <MDBInput value={title} id="titleInput" onChange={(e)=>{handleTitle(e)}} placeholder="Dish's name" wrapperClass='mb-4' type='title' size="lg"/>
                             <div className='mb-2 mx-auto'>
                                 <div className="d-inline">
                                     <input className="radio mr-1" type="radio" id="veg" name="food_type" value="veg" checked />
@@ -127,16 +132,16 @@ export default function AdminAddRecipe() {
                             </div>
                             <div className="row">
                                 <div className="col-md-10 col-12">
-                                <MDBInput id="ingredientsInput" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4' value={ingredient}/>
+                                <MDBInput value={ingredient} id="ingredientsInput" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4' value={ingredient}/>
                                 </div>
                                 <div className="col-md-2 col-8 mx-auto mb-4">
                                     <div className="btn btn-warning text-dark w-100" onClick={(e)=>{addIngredient(e)}}>Add</div>
                                 </div>
                             </div>
                             <div className="mb-2 fw-bold">Preparation Time</div>
-                            <MDBInput id="prepTimeInput" onChange={(e)=>{handlePrepTime(e)}} placeholder="Time it would take to prepare the dish" type='title' size="lg"/>
+                            <MDBInput value={prepTime} id="prepTimeInput" onChange={(e)=>{handlePrepTime(e)}} placeholder="Time it would take to prepare the dish" type='title' size="lg"/>
                             <div className="mb-2 mt-4 fw-bold">Preparation</div>
-                            <MDBTextArea rows={3} id="preparationInput" placeholder="Steps to prepare the dish" onChange={(e)=>{handlePreparation(e)}} />
+                            <MDBTextArea value={preparation} rows={3} id="preparationInput" placeholder="Steps to prepare the dish" onChange={(e)=>{handlePreparation(e)}} />
                             <div className='d-flex flex-row mt-2'></div>
                             <div className="row">
                                 <div className="col-10 mx-auto">

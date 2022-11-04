@@ -6,22 +6,43 @@ import { Link } from 'react-router-dom'
 
 export default function AllRecipes({auth}) {
   const [recipes,setRecipes]=useState([])
+  const [currentPage,setCurrentPage]=useState(0)
   useEffect(()=>{
-      getRecipes()
-  },[])
-  async function getRecipes(){
-    console.log("Buha")
-      const response = await fetch("http://localhost:4000/api/get-recipes")
+      getRecipes({"page":currentPage})
+  },[currentPage])
+  async function getRecipes(req){
+      const response = await fetch("http://localhost:4000/api/get-recipes",{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(req)
+    })
       await response.json().then((data)=>{
       setRecipes(data)
       console.log(data)
     })
   }
+
   function removeAllRecipe(id){
     console.log("removeAllRecipe", id)
     var tempRecipes = recipes.filter((recipe) => { return recipe._id !== id })
     console.log("tempRecipes", tempRecipes)
     setRecipes(tempRecipes)
+  }
+  function prevPage(){
+    console.log("trying")
+    if(currentPage>0){
+      console.log("decremented")
+      setCurrentPage(currentPage-1)
+    }
+  }
+  function nextPage(){
+    console.log("trying")
+    if(recipes.length>0){
+      console.log("incremented")
+      setCurrentPage(currentPage+1)
+    }
   }
   return (
     <div>
@@ -51,6 +72,21 @@ export default function AllRecipes({auth}) {
           </div>
         </div>
         <div className='container-fluid'>
+            <nav className='d-flex justify-content-center' aria-label="Page navigation">
+              <ul class="pagination">
+                  <li class="page-item">
+                  <a class="page-link" onClick={()=>{prevPage()}} aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" >Page {currentPage+1}</a></li>
+                  <li class="page-item">
+                  <a class="page-link" onClick={()=>{nextPage()}} aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                  </a>
+                  </li>
+              </ul>
+            </nav>
             <RecipeList removeAllRecipe={removeAllRecipe} recipes={recipes} auth={auth} type={"all"} setRecipes={setRecipes}></RecipeList>
         </div>
     </div>
