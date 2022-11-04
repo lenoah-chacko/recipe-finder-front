@@ -1,15 +1,9 @@
 import { useEffect} from 'react'
-import AuthService from './authService'
-function ProtectedFromAdminRoutes({setAuth, checkAuth }) {
+function ProtectedFromAdminRoutes({ checkAuth, authorizeUser }) {
     useEffect(() => {
-        async function authorizeUser()
-        {
-            let authorized=await AuthService()
-            setAuth(authorized)
-        }
         authorizeUser()
-    }, [])
-    return checkAuth()
+    }, [authorizeUser])
+    return checkAuth("unauthorized","authorized")
 }
 
 export default ProtectedFromAdminRoutes

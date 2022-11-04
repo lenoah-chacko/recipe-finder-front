@@ -59,7 +59,7 @@ function handleLogout(){
                                                                                         :"nav-link"}}>
                 Suggest a Recipe
               </NavLink>
-              :<NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
+              :auth==="unauthorized"&&<NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
                                                                                   :"nav-link"}}>
                 Suggest a Recipe
                 </NavLink>
@@ -80,7 +80,7 @@ function handleLogout(){
                                                                                   :"nav-link"}}>
                                 Admin Login
                               </NavLink>
-                              :<div className='nav-link' style={{cursor:"pointer"}} onClick={()=>{handleLogout()}}>
+                              :auth==="authorized"&&<div className='nav-link' style={{cursor:"pointer"}} onClick={()=>{handleLogout()}}>
                                 Logout
                               </div>
         }

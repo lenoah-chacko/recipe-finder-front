@@ -4,21 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({ auth, showDeletedToastMessage, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
     const navigate=useNavigate()
-
-    const [recipeTemp, setRecipeTemp] = useState(
-        {
-            author: author,
-            dish: dish,
-            ingredients: ingredients,
-            lastEdited: lastEdited,
-            preparation: preparation,
-            prepTime: prepTime,
-            veg: veg
-        }
-    )
 
 
 
@@ -54,7 +42,7 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
             <div className="card text-center">
                 <div className="corner-logo"></div>
                 <div className="tag-wrapper">
-                    {recipeTemp.veg ?
+                    {veg ?
                         <div className="tag veg">Veg</div>
                         : <div className="tag non-veg">Non-Veg</div>}
                 </div>
@@ -62,7 +50,7 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                     <div className="list-group list-group-flush title">
                         <h5 className="card-title w-100 d-flex justify-content-center align-items-center">
                             <span className='title'>
-                                {recipeTemp.dish}
+                                {dish}
                             </span>
                         </h5>
 
@@ -72,9 +60,9 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                             </div>
                             <div className="row d-flex align-items-center">
                                 <div className="col">
-                                    {(!!recipeTemp.ingredients && recipeTemp.ingredients.length > 0) ?
-                                        recipeTemp.ingredients.length < ingredientCutoff ?
-                                            recipeTemp.ingredients.map((ingredient, i) => (
+                                    {(!!ingredients && ingredients.length > 0) ?
+                                        ingredients.length < ingredientCutoff ?
+                                            ingredients.map((ingredient, i) => (
                                                 <span key={i} className="badge badge-warning darkgreen ml-1 text-wrap">{ingredient}</span>
                                             ))
                                             : ingredients.slice(0, ingredientCutoff).map((ingredient, i) => (
@@ -82,7 +70,7 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                                             ))
                                         : "None specified"
                                     }
-                                    {(!!recipeTemp.ingredients && recipeTemp.ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{recipeTemp.ingredients.length - ingredientCutoff} more</span>}
+                                    {(!!ingredients && ingredients.length > ingredientCutoff) && <span className="badge badge-warning darkgreen ml-1">+{ingredients.length - ingredientCutoff} more</span>}
                                     { }
                                 </div>
                             </div>
@@ -90,12 +78,12 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                         </div>
                         <div className="list-group-item mt-1">
                             <div className="row">
-                                <div className="col text-muted">Preparation Time: {recipeTemp.prepTime}</div>
+                                <div className="col text-muted">Preparation Time: {prepTime}</div>
                             </div>
                         </div>
                         <div className="list-group-item mt-1 card-text">
                             <div className="preparation">
-                                {recipeTemp.preparation}
+                                {preparation}
                             </div>
                             {type !== "editRequest" && <div className='btn btn-dark darksgreen mt-3' data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
                             {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => navigate(`/pending/edits/${_id}`)}>See Edits</div>}
@@ -103,14 +91,18 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                     </div>
                 </div>
                 <div className="card-footer text-muted">
-                    Updated on {recipeTemp.lastEdited} by {recipeTemp.author}
+                    Updated on {lastEdited} by {author}
                 </div>
             </div>
             {/* Modal */}
-            <ExpandedRecipe showEditSuccessToastMessage={showEditSuccessToastMessage}
+            <ExpandedRecipe
+                showDeletedToastMessage={showDeletedToastMessage} 
+                showEditSuccessToastMessage={showEditSuccessToastMessage}
                 showEditRejectionToastMessage={showEditRejectionToastMessage}
                 showAddSuccessToastMessage={showAddSuccessToastMessage}
                 showAddRejectionToastMessage={showAddRejectionToastMessage}
+                removeAllRecipe={removeAllRecipe}
+                removeSearchRecipe={removeSearchRecipe}
                 removeAddRecipe={removeAddRecipe}
                 removeEditRecipe={removeEditRecipe}
                 org_id={org_id}
@@ -124,8 +116,6 @@ export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRe
                 veg={veg}
                 type={type} 
                 auth={auth}
-                recipeTemp={recipeTemp}
-                setRecipeTemp={setRecipeTemp}
                 />
         </div>
     )

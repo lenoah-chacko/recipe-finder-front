@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import RecipeList from '../../common/recipeList/recipeList'
 
-export default function AdminTitleSearchResults() {
+export default function AdminTitleSearchResults({auth}) {
   const navigate=useNavigate()
   const [recipes,setRecipes]=useState([])
   const [searchParams,setSearchParams]=useSearchParams()
@@ -23,6 +23,10 @@ export default function AdminTitleSearchResults() {
           setRecipes(data)
           console.log("recipes",data)
   })
+}
+function removeSearchRecipe(_id){
+  console.log("removeSearchRecipe", _id)
+  setRecipes(recipes.filter((recipe) => { return recipe._id !== _id }))
 }
   return (
     <div>
@@ -59,7 +63,7 @@ export default function AdminTitleSearchResults() {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} type={"search"}></RecipeList>
+            <RecipeList auth={auth} removeSearchRecipe={removeSearchRecipe} recipes={recipes} type={"search"}></RecipeList>
         </div>
     </div>
   )

@@ -2,7 +2,7 @@ import RecipeCard from './recipeCard/recipeCard'
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react'
 
-export default function RecipeList({auth,removeAddRecipe,removeEditRecipe,recipes,setRecipes,type,originalRecipe}) {
+export default function RecipeList({auth, removeAllRecipe, removeSearchRecipe, removeAddRecipe,removeEditRecipe,recipes,setRecipes,type,originalRecipe}) {
 
     useEffect(() => {
         console.log("RecipeList",recipes,originalRecipe)
@@ -32,6 +32,13 @@ export default function RecipeList({auth,removeAddRecipe,removeEditRecipe,recipe
             position: toast.POSITION.TOP_RIGHT
         });
     };
+    function showDeletedToastMessage(){
+        console.log("deleted")
+        toast.error('Recipe deleted!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
 
   return (
     <div>
@@ -53,6 +60,9 @@ export default function RecipeList({auth,removeAddRecipe,removeEditRecipe,recipe
                                           type={type}
                                           removeEditRecipe={removeEditRecipe}
                                           removeAddRecipe={removeAddRecipe}
+                                          removeAllRecipe={removeAllRecipe}
+                                          removeSearchRecipe={removeSearchRecipe}
+                                          showDeletedToastMessage={showDeletedToastMessage}
                                           showEditSuccessToastMessage={showEditSuccessToastMessage}
                                           showEditRejectionToastMessage={showEditRejectionToastMessage}
                                           showAddSuccessToastMessage={showAddSuccessToastMessage}

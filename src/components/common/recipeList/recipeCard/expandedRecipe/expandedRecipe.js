@@ -2,7 +2,7 @@ import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, index, recipeTemp, setRecipeTemp }) {
+export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, index}) {
 
     function accept() {
         if (type === "addRequest") {
@@ -89,8 +89,35 @@ export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAd
             showEditRejectionToastMessage()
         })
     }
-    function deleteRecipe(){
-        console.log("deleting")
+    function deleteHandler(_id){
+        console.log("deleting",_id)
+        deleteRecipe({_id:_id})
+        if (type === "all"){
+            console.log("removing all")
+            removeAllRecipe(_id)
+        }
+        else if (type === "search"){
+            console.log("removing search")
+            removeSearchRecipe(_id)
+        }
+    }
+
+    async function deleteRecipe(req){
+        console.log("deleting async", req)
+        let token = localStorage.getItem("token")
+        const response = await fetch("http://localhost:4000/api/admin/delete-recipe",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': "Bearer " + token
+            },
+            body: JSON.stringify(req)
+        })
+        await response.json().then((data)=>{
+            showDeletedToastMessage()
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
     return (
         <>
@@ -146,7 +173,7 @@ export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAd
                                 <span className='font-italic'> {lastEdited} </span>
                             </span>
                             {(type === "all" || type === "search") && <div>
-                                {auth==="authorized"&&<button type="button" className="btn btn-dark darkgreen mr-2" style={{backgroundColor: "rgb(199, 24, 27)"}} data-dismiss="modal" onClick={()=>{deleteRecipe()}}>Delete</button>}
+                                {(auth==="authorized")&&<button type="button" className="btn btn-dark darkgreen mr-2" style={{backgroundColor: "rgb(199, 24, 27)"}} data-dismiss="modal" onClick={()=>{deleteHandler(_id)}}>Delete</button>}
                                 {(auth==="unauthorized")&&<button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Suggest an Edit</button>}
                                 {(auth==="authorized")&&<button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Edit Recipe</button>}
 
@@ -159,7 +186,7 @@ export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAd
                     </div>
                 </div>
             </div>
-            <EditRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} auth={auth} index={index} recipeTemp={recipeTemp} setRecipeTemp={setRecipeTemp}></EditRecipe>
+            <EditRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} auth={auth} index={index}></EditRecipe>
         </>
     )
 }

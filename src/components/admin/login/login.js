@@ -1,6 +1,6 @@
 import React from 'react'
 import './Login.css'
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBRow, MDBInput } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

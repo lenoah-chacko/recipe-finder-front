@@ -13,25 +13,33 @@ import VisitorIngredientsSearchResults from './components/visitor/visitorSearch/
 import AdminTitleSearchResults from './components/admin/adminSearch/adminTitleSearchResults';
 import NotFound from './components/common/notFound/notFound'
 import ProtectedRoutes from './components/admin/authServices/protectedRoutes'
-import { useEffect, useState } from 'react';
-import AuthService from './components/admin/authServices/authService';
+import { useState } from 'react';
 import Dashboard from './components/admin/dashboard/dashboard';
 import EditRequestExpanded from './components/admin/pendingRequests/editRequestExpanded/editRequestExpanded';
 import ProtectedFromAdminRoutes from './components/admin/authServices/protectedFromAdminRoutes';
 import AdminAddRecipe from './components/admin/recipeOperations/addRecipeAdmin/addRecipeAdmin';
-
+import AuthService from './components/admin/authServices/authService';
+import UnprotectedRoutes from './components/admin/authServices/unprotectedRoutes'
 function App() {
   const [auth, setAuth] = useState("neutral")
 
-  function checkAuth() {
-      if (auth == "unauthorized") {
-          return <Navigate to='/login' replace />;
-      }
-      else if (auth == "authorized") {
+  async function authorizeUser()
+  {
+      let authorized=await AuthService()
+      setAuth(authorized)
+  }
 
+  function checkAuth(desirable,nondesirable) {
+    console.log({"auth":auth,"desirable":desirable,"nondesirable":nondesirable})
+      if (auth === nondesirable) {
+          console.log("You are not authorized to view this page. Please log in.")
+          return desirable==="unauthorized"?<Navigate to='/all-recipes' replace />:<Navigate to='/dashboard' replace />;
+      }
+      else if (auth === desirable) {
+          console.log("authorized")
           return <Outlet/>;
       }
-      else if (auth == "neutral") {
+      else if (auth === "neutral") {
           setTimeout(checkAuth,500)
       }
   }
@@ -39,10 +47,10 @@ function App() {
     <div className="App">
       <Navbar auth={auth} setAuth={setAuth}></Navbar>
       <Routes>
-        <Route element={<ProtectedRoutes setAuth={setAuth} checkAuth={checkAuth}/>}>
+        <Route element={<ProtectedRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
           <Route path='/admin/find' element={<AdminSearch />}></Route>
           <Route path='/admin/search'>
-            <Route path='title' element={<AdminTitleSearchResults />}></Route>
+            <Route path='title' element={<AdminTitleSearchResults auth={auth} />}></Route>
           </Route>
           <Route path='/admin/add-requests' element={<AddRequests />} />
           <Route path='/admin/edit-requests' element={<EditRequests />} />
@@ -56,7 +64,7 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route element={<ProtectedFromAdminRoutes setAuth={setAuth} checkAuth={checkAuth}/>}>
+        <Route element={<ProtectedFromAdminRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
           <Route path='/login' element={<Login setAuth={setAuth} />}></Route>
           <Route path='/find' element={<VisitorSearch />}></Route>
           <Route path='/search'>
@@ -64,11 +72,13 @@ function App() {
             <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
           </Route>
         </Route>
+        <Route element={<UnprotectedRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
+          <Route path='/add-recipe' authorizeUser={authorizeUser} element={<Submission />}></Route>
+          <Route path='/all-recipes' authorizeUser={authorizeUser} element={<AllRecipes auth={auth}/>}></Route>
+          <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
+          <Route path='*' element={<NotFound />}></Route>
+        </Route>
 
-        <Route path='/add-recipe' element={<Submission />}></Route>
-        <Route path='/all-recipes' element={<AllRecipes auth={auth}/>}></Route>
-        <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
-        <Route path='*' element={<NotFound />}></Route>
       </Routes>
     </div >
   );

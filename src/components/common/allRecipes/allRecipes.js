@@ -17,6 +17,12 @@ export default function AllRecipes({auth}) {
       console.log(data)
     })
   }
+  function removeAllRecipe(id){
+    console.log("removeAllRecipe", id)
+    var tempRecipes = recipes.filter((recipe) => { return recipe._id !== id })
+    console.log("tempRecipes", tempRecipes)
+    setRecipes(tempRecipes)
+  }
   return (
     <div>
         <div id="allRecipes" className="jumbotron">
@@ -45,7 +51,7 @@ export default function AllRecipes({auth}) {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} auth={auth} type={"all"} setRecipes={setRecipes}></RecipeList>
+            <RecipeList removeAllRecipe={removeAllRecipe} recipes={recipes} auth={auth} type={"all"} setRecipes={setRecipes}></RecipeList>
         </div>
     </div>
   )

@@ -1,15 +1,9 @@
 import { useEffect } from 'react'
-import AuthService from './authService'
-function ProtectedRoutes({setAuth, checkAuth }) {
+function ProtectedRoutes({authorizeUser, checkAuth }) {
     useEffect(() => {
-        async function authorizeUser()
-        {
-            let authorized=await AuthService()
-            setAuth(authorized)
-        }
         authorizeUser()
-    }, [])
-    return checkAuth()
+    }, [authorizeUser])
+    return checkAuth("authorized","unauthorized")
 }
 
 export default ProtectedRoutes
