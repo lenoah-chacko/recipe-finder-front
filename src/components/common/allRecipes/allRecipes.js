@@ -45,7 +45,7 @@ export default function AllRecipes({auth}) {
           </div>
         </div>
         <div className='container-fluid'>
-            <RecipeList recipes={recipes} type={"all"} auth={auth}></RecipeList>
+            <RecipeList recipes={recipes} auth={auth} type={"all"} setRecipes={setRecipes}></RecipeList>
         </div>
     </div>
   )

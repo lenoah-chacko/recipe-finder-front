@@ -1,19 +1,14 @@
 import React from 'react'
-import './Submission.css'
+import './AdminSubmission.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput, MDBTextArea } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
-export default function Submission() {
+export default function AdminAddRecipe() {
     const [ingredients,setIngredients]=useState([])
 
-    
-    const [author,setAuthor]=useState("")
-    function handleAuthor(e){
-        setAuthor(e.target.value)
-        console.log(e)
-    }
     const [title,setTitle]=useState("")
     function handleTitle(e){
         setTitle(e.target.value)
@@ -52,7 +47,7 @@ export default function Submission() {
     function submit(){
         addRecipe({
             "dish":title,
-            "author":author,
+            "author":"RecipeFinder",
             "ingredients":ingredients,
             "preparation":preparation,
             "veg":true,
@@ -60,11 +55,13 @@ export default function Submission() {
         })
     }
     async function addRecipe(req){
-        console.log("adding",req)
-        const response = await fetch("http://localhost:4000/api/add-request",{
+        // console.log("adding",req)
+        let token=localStorage.getItem("token")
+        const response = await fetch("http://localhost:4000/api/admin/add-recipe",{
             method:"POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization' : "Bearer "+token
             },
             body: JSON.stringify(req)
         })
@@ -76,7 +73,7 @@ export default function Submission() {
     }
     function showToastMessage(){
         console.log("success")
-        toast.success('Recipe request submitted successfully!', {
+        toast.success('Recipe added successfully!', {
             position: toast.POSITION.TOP_RIGHT
         });
     };
@@ -94,8 +91,6 @@ export default function Submission() {
                             <MDBCardBody className='d-flex flex-column'>
                             <div className="d-flex flex-row mt-3"></div>
                             <div className="fs-3 fw-lighter text-center">Add a Recipe</div>                           
-                            <div className="mb-2 mt-4 fw-bold">Author</div>
-                            <MDBInput id="authorInput" onChange={(e)=>{handleAuthor(e)}} placeholder="Your name" wrapperClass='mb-4' type='author' size="lg"/>
                             <div className="mb-2 fw-bold">Title</div>
                             <MDBInput id="titleInput" onChange={(e)=>{handleTitle(e)}} placeholder="Dish's name" wrapperClass='mb-4' type='title' size="lg"/>
                             <div className='mb-2 mx-auto'>

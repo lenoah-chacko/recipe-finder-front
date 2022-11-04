@@ -2,7 +2,7 @@ import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, index, recipeTemp, setRecipeTemp }) {
 
     function accept() {
         if (type === "addRequest") {
@@ -147,7 +147,9 @@ export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAd
                             </span>
                             {(type === "all" || type === "search") && <div>
                                 {auth==="authorized"&&<button type="button" className="btn btn-dark darkgreen mr-2" style={{backgroundColor: "rgb(199, 24, 27)"}} data-dismiss="modal" onClick={()=>{deleteRecipe()}}>Delete</button>}
-                                <button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Suggest an Edit</button>
+                                {(auth==="unauthorized")&&<button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Suggest an Edit</button>}
+                                {(auth==="authorized")&&<button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Edit Recipe</button>}
+
                             </div>}
                             {(type === "addRequest" || type === "editsOnly") && <div>
                                 <button type="button" className="btn btn-secondary darkgreen mr-2" onClick={() => { accept() }} data-dismiss="modal">Accept</button>
@@ -157,7 +159,7 @@ export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAd
                     </div>
                 </div>
             </div>
-            <EditRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg}></EditRecipe>
+            <EditRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} auth={auth} index={index} recipeTemp={recipeTemp} setRecipeTemp={setRecipeTemp}></EditRecipe>
         </>
     )
 }

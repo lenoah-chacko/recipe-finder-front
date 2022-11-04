@@ -2,7 +2,7 @@ import RecipeCard from './recipeCard/recipeCard'
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react'
 
-export default function RecipeList({auth,removeAddRecipe,removeEditRecipe,recipes,type,originalRecipe}) {
+export default function RecipeList({auth,removeAddRecipe,removeEditRecipe,recipes,setRecipes,type,originalRecipe}) {
 
     useEffect(() => {
         console.log("RecipeList",recipes,originalRecipe)

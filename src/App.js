@@ -18,8 +18,7 @@ import AuthService from './components/admin/authServices/authService';
 import Dashboard from './components/admin/dashboard/dashboard';
 import EditRequestExpanded from './components/admin/pendingRequests/editRequestExpanded/editRequestExpanded';
 import ProtectedFromAdminRoutes from './components/admin/authServices/protectedFromAdminRoutes';
-
-
+import AdminAddRecipe from './components/admin/recipeOperations/addRecipeAdmin/addRecipeAdmin';
 
 function App() {
   const [auth, setAuth] = useState("neutral")
@@ -47,6 +46,7 @@ function App() {
           </Route>
           <Route path='/admin/add-requests' element={<AddRequests />} />
           <Route path='/admin/edit-requests' element={<EditRequests />} />
+          <Route path='/admin/add-recipe' element={<AdminAddRecipe />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/pending'>
             <Route path='submissions' element={<AddRequests />} />
