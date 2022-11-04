@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-export default function Navbar() {
+export default function Navbar({auth,setAuth}) {
   const navigate=useNavigate()
   const [form,setForm]=useState({"dish":"","matchcase":false,"matchword":false})
 
@@ -13,8 +13,16 @@ function handleForm(e){
 function handleSearch(e){
   e.preventDefault()
   console.log("gonna search",form)
-  navigate(`/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+  if(auth==="unauthorized")
+    navigate(`/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
+  else
+    navigate(`/admin/search/title?dish=${form.dish}&matchcase=${form.matchcase}&matchword=${form.matchword}`)
   setForm({"dish":"","matchcase":false,"matchword":false})
+}
+function handleLogout(){
+  setAuth("unauthorized")
+  localStorage.clear()
+  navigate("/login")
 }
   return (
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,10 +36,16 @@ function handleSearch(e){
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto ml-3">
       <li className="nav-item">
-        <NavLink to='/find' className={({isActive})=>{return isActive?"nav-link active"
-                                                            :"nav-link"}}>
-          Find a Recipe
-        </NavLink>
+        {auth==="authorized"?
+              <NavLink to='/admin/find' className={({isActive})=>{return isActive?"nav-link active"
+                                                                  :"nav-link"}}>
+                Find a Recipe
+              </NavLink>
+              :
+              <NavLink to='/find' className={({isActive})=>{return isActive?"nav-link active"
+                                                                  :"nav-link"}}>
+                Find a Recipe
+              </NavLink>}
       </li>
       <li className="nav-item">
           <NavLink to='/all-recipes' className={({isActive})=>{return isActive?"nav-link active"
@@ -40,23 +54,36 @@ function handleSearch(e){
           </NavLink>
       </li>
       <li className="nav-item">
-        <NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
-                                                            :"nav-link"}}>
-          Suggest a Recipe
-        </NavLink>
+        {auth==="authorized"?
+              <NavLink to='/admin/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
+                                                                                        :"nav-link"}}>
+                Suggest a Recipe
+              </NavLink>
+              :<NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
+                                                                                  :"nav-link"}}>
+                Suggest a Recipe
+                </NavLink>
+        }
       </li>
       <li className="nav-item">
-        <NavLink to='/dashboard' className={({isActive})=>{return isActive?"nav-link active"
-                                                            :"nav-link"}}>
-          Dashboard
-        </NavLink>
+      {auth==="authorized"&&
+                          <NavLink to='/dashboard' className={({isActive})=>{return isActive?"nav-link active"
+                                                                              :"nav-link"}}>
+                            Dashboard
+                          </NavLink>
+    }
       </li>
     </ul>
       <div className="navbar-nav ml-3 mr-2">
-        <NavLink to='/login' className={({isActive})=>{return isActive?"nav-link active"
-                                                            :"nav-link"}}>
-          Admin Login
-        </NavLink>
+      {auth==="unauthorized"?
+                            <NavLink to='/login' className={({isActive})=>{return isActive?"nav-link active"
+                                                                                  :"nav-link"}}>
+                                Admin Login
+                              </NavLink>
+                              :<div className='nav-link' style={{cursor:"pointer"}} onClick={()=>{handleLogout()}}>
+                                Logout
+                              </div>
+        }
       </div>
   </div>
   <div className="d-none d-lg-block">

@@ -17,12 +17,47 @@ ChartJS.register(CategoryScale,LinearScale,PointElement,LineElement,Title,Toolti
 export function Graph() {
   const options = {
     responsive: true,
+    scales: {
+      x:{
+        grid: {
+          drawBorder: true,
+          color: '#000000',
+        },
+        ticks:{
+            beginAtZero: true,
+            color: '#000000'
+        },
+        display: true,
+        title: {
+          color: '#000000',
+          display: true,
+          text: 'Month',
+        },
+      },
+      y: {
+        grid: {
+          drawBorder: true,
+          color: '#000000',
+        },
+        ticks:{
+            beginAtZero: true,
+            color: '#000000'
+        },
+        display: true,
+        title: {
+          color: '#000000',
+          display: true,
+          text: 'Number of Contributions',
+        },
+      },
+    },
     plugins: {
         legend: {
-          display: false
+          display: false,
         },
         title: {
         display: true,
+        color: '#000000',
         text: 'Recipes added in the last 6 months',
         font: {
           size: 30
@@ -55,8 +90,8 @@ export function Graph() {
     {
       label: 'Submissions',
       data: data,
-      borderColor: 'rgb(0, 42, 50)',  // line graph's line colour
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      borderColor: '#000',  // line graph's line colour
+      backgroundColor: 'rgba(255, 169, 0, 1)',
     }
   ],
 }} />;

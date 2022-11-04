@@ -19,19 +19,21 @@
     display: table;
     margin: auto;
     font-family: Poppins;
-    color: white; 
+    color: rgb(0, 0, 0); 
 }
 #sub{
     background-image: url("../../../../public/images/add req.png");
     background-position: center;
+    filter: invert(100%);
 }
 #edit{
     background-image: url("../../../../public/images/edit req.png");
     background-position: center;
+    filter: invert(100%);
 }
 .pending-text{
     font-family: Poppins;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 .req{
     background-repeat: no-repeat;
@@ -40,4 +42,12 @@
     width: 190px;
     display: table;
     margin: auto auto 30px;
+}
+#dashboardbg{
+    background: url("../../../../public/images/dashboardbg.png") #FCF8F5 0 0 no-repeat;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }

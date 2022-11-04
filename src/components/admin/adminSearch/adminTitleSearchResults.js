@@ -30,7 +30,7 @@ export default function AdminTitleSearchResults() {
           <div className="px-5">
               <h1 className="display-4 row">
                 <div className="back">
-                  <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate('/find')}}>
+                  <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate(-1)}}>
                     <i className='fa fa-arrow-left'></i>
                   </div>
                 </div>

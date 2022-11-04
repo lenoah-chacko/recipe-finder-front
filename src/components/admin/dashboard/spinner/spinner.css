@@ -10,7 +10,7 @@
     height: 100%;
     fill: none;
     stroke-width: 10;
-    stroke: #000;
+    stroke: rgb(0, 0, 0);
     transform: translate(5px,5px);
     stroke-dasharray: 440;
     stroke-dashoffset: 440;
@@ -18,6 +18,10 @@
 .box .percent svg circle:nth-child(1){
     stroke-dashoffset: 0;
     stroke: #f3f3f3;
+}
+.box .percent svg circle:nth-child(2){
+    stroke-dashoffset: 0;
+    stroke: #FFA900;
 }
 .box .percent .number
 {

@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({ auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
+    const navigate=useNavigate()
     useEffect(() => {
         function handleResize() {
             const width = window.innerWidth
@@ -29,30 +31,12 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
         }
         window.addEventListener('resize', handleResize)
     }, [])
-    async function seeEdits(_id) {
-        var request = { "_id": _id }
-        let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': "Bearer " + token
-            },
-            body: JSON.stringify(request)
-        })
-        await response.json().then((data) => {
-            // setRecipe(data)
-            //push to another page
-            console.log("recieved", data)
-        }).catch((error) => {
-            // Your error is here!
-            console.log("err", error)
-        });
-    }
+    
 
     return (
         <div>
-            <div className="card corner-logo text-center">
+            <div className="card text-center">
+                <div className="corner-logo"></div>
                 <div className="tag-wrapper">
                     {veg ?
                         <div className="tag veg">Veg</div>
@@ -98,7 +82,7 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                                 {preparation}
                             </div>
                             {type !== "editRequest" && <div className='btn btn-dark darksgreen mt-3' data-toggle="modal" data-target={"#recipeModal" + _id}>Read more</div>}
-                            {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => seeEdits(_id)}>See Edits</div>}
+                            {type === "editRequest" && <div className='btn btn-dark darksgreen mt-3' onClick={() => navigate(`/pending/edits/${_id}`)}>See Edits</div>}
                         </div>
                     </div>
                 </div>
@@ -122,7 +106,8 @@ export default function RecipeCard({ showAddSuccessToastMessage, showAddRejectio
                 preparation={preparation}
                 prepTime={prepTime}
                 veg={veg}
-                type={type} />
+                type={type}
+                auth={auth}/>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from './components/common/navbar/navbar';
 import VisitorSearch from './components/visitor/visitorSearch/visitorSearch';
 import AdminSearch from './components/admin/adminSearch/adminSearch';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import AllRecipes from './components/common/allRecipes/allRecipes';
 import Login from './components/admin/login/login'
 import Submission from './components/visitor/newSubmission/Submission'
@@ -17,15 +17,30 @@ import { useEffect, useState } from 'react';
 import AuthService from './components/admin/authServices/authService';
 import Dashboard from './components/admin/dashboard/dashboard';
 import EditRequestExpanded from './components/admin/pendingRequests/editRequestExpanded/editRequestExpanded';
+import ProtectedFromAdminRoutes from './components/admin/authServices/protectedFromAdminRoutes';
 
 
 
 function App() {
+  const [auth, setAuth] = useState("neutral")
+
+  function checkAuth() {
+      if (auth == "unauthorized") {
+          return <Navigate to='/login' replace />;
+      }
+      else if (auth == "authorized") {
+
+          return <Outlet/>;
+      }
+      else if (auth == "neutral") {
+          setTimeout(checkAuth,500)
+      }
+  }
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Navbar auth={auth} setAuth={setAuth}></Navbar>
       <Routes>
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<ProtectedRoutes setAuth={setAuth} checkAuth={checkAuth}/>}>
           <Route path='/admin/find' element={<AdminSearch />}></Route>
           <Route path='/admin/search'>
             <Route path='title' element={<AdminTitleSearchResults />}></Route>
@@ -41,15 +56,18 @@ function App() {
             </Route>
           </Route>
         </Route>
-        <Route path='/add-recipe' element={<Submission />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/all-recipes' element={<AllRecipes />}></Route>
-        <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
-        <Route path='/find' element={<VisitorSearch />}></Route>
-        <Route path='/search'>
-          <Route path='title' element={<VisitorTitleSearchResults />}></Route>
-          <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
+        <Route element={<ProtectedFromAdminRoutes setAuth={setAuth} checkAuth={checkAuth}/>}>
+          <Route path='/login' element={<Login setAuth={setAuth} />}></Route>
+          <Route path='/find' element={<VisitorSearch />}></Route>
+          <Route path='/search'>
+            <Route path='title' element={<VisitorTitleSearchResults />}></Route>
+            <Route path='ingredients' element={<VisitorIngredientsSearchResults />}></Route>
+          </Route>
         </Route>
+
+        <Route path='/add-recipe' element={<Submission />}></Route>
+        <Route path='/all-recipes' element={<AllRecipes auth={auth}/>}></Route>
+        <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
         <Route path='*' element={<NotFound />}></Route>
       </Routes>
     </div >

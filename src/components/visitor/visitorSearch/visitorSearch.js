@@ -5,7 +5,6 @@ import SearchByIngredients from './searchByIngredients/searchByIngredients'
 import './visitorSearch.css'
 
 export default function VisitorSearch() {
-    const location =useLocation()
     const [searchType,setSearchType]=useState(true)
     function selectIngredients(){
         setSearchType(false)
@@ -15,15 +14,6 @@ export default function VisitorSearch() {
         setSearchType(true)
         console.log("title")
     }
-    useEffect(()=>{
-        console.log("location",location.state)
-        if(!!location.state){
-            setSearchType(location.state.title)
-        }
-        else{
-            setSearchType(true)
-        }
-    },[location])
 return (
     <div className='height'>
         <div className="container">

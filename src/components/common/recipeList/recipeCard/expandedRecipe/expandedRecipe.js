@@ -2,7 +2,7 @@ import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ExpandedRecipe({ showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function ExpandedRecipe({auth, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
 
     function accept() {
         if (type === "addRequest") {
@@ -89,6 +89,9 @@ export default function ExpandedRecipe({ showAddSuccessToastMessage, showAddReje
             showEditRejectionToastMessage()
         })
     }
+    function deleteRecipe(){
+        console.log("deleting")
+    }
     return (
         <>
             <div className="modal fade" id={"recipeModal" + _id} tabIndex="-1" role="dialog" aria-labelledby={"recipeModalLabel" + _id} aria-hidden="true">
@@ -143,7 +146,7 @@ export default function ExpandedRecipe({ showAddSuccessToastMessage, showAddReje
                                 <span className='font-italic'> {lastEdited} </span>
                             </span>
                             {(type === "all" || type === "search") && <div>
-                                <button type="button" className="btn btn-dark darkgreen mr-2" data-dismiss="modal">Close</button>
+                                {auth==="authorized"&&<button type="button" className="btn btn-dark darkgreen mr-2" style={{backgroundColor: "rgb(199, 24, 27)"}} data-dismiss="modal" onClick={()=>{deleteRecipe()}}>Delete</button>}
                                 <button type="button" className="btn btn-warning text-dark" data-dismiss="modal" data-toggle="modal" data-target={"#editRecipeModal" + _id}>Suggest an Edit</button>
                             </div>}
                             {(type === "addRequest" || type === "editsOnly") && <div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import RecipeList from '../../../common/recipeList/recipeList'
 
 export default function EditRequestExpanded() {
+    const navigate=useNavigate()
     const {id} = useParams()
     const [recipe, setRecipe] = useState({ "_id": "", "dish": "", "ingredients": [], "preparation": "", "edits": [], "author": "", "lastEdited": "", "veg": "" ,"prepTime":""})
     const [recipes, setRecipes] = useState([])
@@ -38,20 +39,21 @@ export default function EditRequestExpanded() {
         });
     }
 
-    async function seeEdits(id) {
-        var request = { "_id": id }
+    async function seeEdits(_id) {
+        var request = { "_id": _id }
+        let token = localStorage.getItem("token")
         const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': "Bearer " + token
             },
             body: JSON.stringify(request)
         })
         await response.json().then((data) => {
-            // setRecipe(data)
+            setRecipes(data)
             //push to another page
             console.log("recieved", data)
-            setRecipes(data)
         }).catch((error) => {
             // Your error is here!
             console.log("err", error)
@@ -61,9 +63,17 @@ export default function EditRequestExpanded() {
     <div>
         <div id="allRecipes" className="jumbotron">
           <div className="px-5">
+            
             <div className="row">
                 <div className="col-12 col-lg-6">
-                    <h1 className="display-4">{recipe.dish}</h1>
+                    <h1 className="display-4 row">
+                        <div className="back">
+                        <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate(-1)}}>
+                            <i className='fa fa-arrow-left'></i>
+                        </div>
+                        </div>
+                        <div className='col d-block'>{recipe.dish}</div>
+                    </h1>
                     <p className="lead">Last edited by {recipe.author} on {recipe.lastEdited}</p>
                     <hr className='my-4' style={{background: 'gray',height: '3px'}}/>          
                     <div className="lead">
@@ -96,7 +106,7 @@ export default function EditRequestExpanded() {
                     </div>
                     <hr className='my-4 d-block d-lg-none' style={{background: 'gray',height: '3px'}}/>
                     <div>
-                        <h1 className="fs-3">Steps for preparation</h1>
+                        <h1 className="fs-3 mt-4">Steps for preparation</h1>
                         {recipe.preparation}
                     </div>
                 </div>

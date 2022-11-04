@@ -2,9 +2,11 @@ import React from 'react'
 import RecipeList from '../../common/recipeList/recipeList'
 import '../../common/allRecipes/allRecipes.css'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function EditRequests() {
   const [recipes, setRecipes] = useState([])
+  const navigate = useNavigate()
 
   async function getEditRequests() {
     let token = localStorage.getItem("token")
@@ -32,7 +34,15 @@ export default function EditRequests() {
     <div>
       <div id="editRequests" className="jumbotron">
         <div className="px-5">
-          <h1 className="display-4">Recipe Edit Submissions</h1>
+          <h1 className="display-4 row">
+              <div className="back">
+              <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate(-1)}}>
+                  <i className='fa fa-arrow-left'></i>
+              </div>
+              </div>
+              <div className='col d-block'>Recipe Edit Submissions</div>
+              
+          </h1>
           <p className="lead">List of all recipe edit requests from users</p>
           <hr className='my-4' style={{ background: 'gray', height: '3px' }} />
         </div>

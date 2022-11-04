@@ -3,7 +3,7 @@ import './Login.css'
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 
-export default function Login() {
+export default function Login({setAuth}) {
     const [showPassWarning, setShowPassWarning] = useState(false);
     const [showUsernameWarning, setShowUsernameWarning] = useState(false);
 
@@ -47,6 +47,7 @@ export default function Login() {
         if (data.auth && (data.auth===true)) {
             setInvalidCred(false);
             localStorage.setItem("token", data.token);
+            setAuth("authorized")
         }
         else {
             setInvalidCred(true);

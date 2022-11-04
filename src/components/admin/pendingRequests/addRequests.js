@@ -4,9 +4,11 @@ import '../../common/allRecipes/allRecipes.css'
 import { useState, useEffect } from 'react'
 import AuthHeader from '../authServices/authHeader'
 import axios from "axios";
+import { useNavigate } from 'react-router-dom'
 
 export default function AddRequests() {
     const [recipes, setRecipes] = useState([])
+    const navigate = useNavigate()
 
     function removeAddRecipe(_id) {
         console.log("removeAddRecipe", _id)
@@ -42,7 +44,15 @@ export default function AddRequests() {
         <div>
             <div id="addRequests" className="jumbotron">
                 <div className="px-5">
-                    <h1 className="display-4">Recipe Submissions</h1>
+                    <h1 className="display-4 row">
+                        <div className="back">
+                        <div className="btn btn-warning p-1 back fs-2" onClick={()=>{navigate(-1)}}>
+                            <i className='fa fa-arrow-left'></i>
+                        </div>
+                        </div>
+                        <div className='col d-block'>Recipe Submissions</div>
+                        
+                    </h1>
                     <p className="lead">List of all recipe submissions from users</p>
                     <hr className='my-4' style={{ background: 'gray', height: '3px' }} />
                 </div>

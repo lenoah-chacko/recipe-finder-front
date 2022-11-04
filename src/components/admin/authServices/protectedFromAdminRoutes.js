@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect} from 'react'
 import AuthService from './authService'
-function ProtectedRoutes({setAuth, checkAuth }) {
+function ProtectedFromAdminRoutes({setAuth, checkAuth }) {
     useEffect(() => {
         async function authorizeUser()
         {
@@ -12,4 +12,4 @@ function ProtectedRoutes({setAuth, checkAuth }) {
     return checkAuth()
 }
 
-export default ProtectedRoutes
+export default ProtectedFromAdminRoutes
