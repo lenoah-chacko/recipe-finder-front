@@ -25,22 +25,20 @@ function App() {
 
   async function authorizeUser()
   {
-      let authorized=await AuthService()
-      setAuth(authorized)
+      await AuthService().then((authorized)=>{
+	  	  setAuth(authorized)
+      })
   }
 
   function checkAuth(desirable,nondesirable) {
     console.log({"auth":auth,"desirable":desirable,"nondesirable":nondesirable})
       if (auth === nondesirable) {
           console.log("You are not authorized to view this page. Please log in.")
-          return desirable==="unauthorized"?<Navigate to='/all-recipes' replace />:<Navigate to='/dashboard' replace />;
+          return desirable==="unauthorized"?<Navigate to='/dashboard' replace />:<Navigate to='/find' replace />;
       }
       else if (auth === desirable) {
           console.log("authorized")
           return <Outlet/>;
-      }
-      else if (auth === "neutral") {
-          setTimeout(checkAuth,500)
       }
   }
   return (
@@ -67,11 +65,11 @@ function App() {
         <Route element={<ProtectedFromAdminRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
           <Route path='/login' element={<Login setAuth={setAuth} />}></Route>
           <Route path='/find' element={<VisitorSearch />}></Route>
+          <Route path='/add-recipe' authorizeUser={authorizeUser} element={<Submission />}></Route>
           <Route path='/search/title' element={<VisitorTitleSearchResults />}></Route>
           <Route path='/search/ingredients' element={<VisitorIngredientsSearchResults />}></Route>
         </Route>
         <Route element={<UnprotectedRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
-          <Route path='/add-recipe' authorizeUser={authorizeUser} element={<Submission />}></Route>
           <Route path='/all-recipes' authorizeUser={authorizeUser} element={<AllRecipes auth={auth}/>}></Route>
           <Route path='/' element={<Navigate to='/find'></Navigate>}></Route>
           <Route path='*' element={<NotFound />}></Route>
