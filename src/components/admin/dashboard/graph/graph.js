@@ -73,7 +73,7 @@ export function Graph() {
   
   async function getData(){
     console.log("getting data")
-      const response = await fetch("http://localhost:4000/api/admin/get-recent-recipes")
+      const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/get-recent-recipes")
       await response.json().then((data)=>{
         setData(data.map((data)=>{return data.numberOfRecipes}))
         setLabels(data.map((data)=>{return months[data.MonthNumber-1]}))

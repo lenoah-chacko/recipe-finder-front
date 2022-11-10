@@ -9,7 +9,7 @@ export default function Dashboard() {
     const [stats,setStats]=useState({"ApprovedRecipes":0,"NewContributionsThisMonth":0,"TotalContributions":0,"PendingSubmissions":0,"PendingEdits":0})
     async function getStats(){
         console.log("getting data")
-          const response = await fetch("http://localhost:4000/api/admin/get-stats")
+          const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/get-stats")
           await response.json().then((data)=>{            
           console.log("got",data)
           setStats(data)

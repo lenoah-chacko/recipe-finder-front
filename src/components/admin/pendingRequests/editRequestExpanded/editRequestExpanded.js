@@ -21,7 +21,7 @@ export default function EditRequestExpanded() {
 
     async function getRecipe(id) {
         var request = { "_id": id }
-        const response = await fetch("http://localhost:4000/api/get-recipe", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/get-recipe", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export default function EditRequestExpanded() {
     async function seeEdits(_id) {
         var request = { "_id": _id }
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/get-recipe-edits", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/get-recipe-edits", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

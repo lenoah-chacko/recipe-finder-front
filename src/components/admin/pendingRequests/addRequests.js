@@ -22,7 +22,7 @@ export default function AddRequests() {
 
     async function getAddRequests() {
         let token=localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/get-add-requests", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/get-add-requests", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

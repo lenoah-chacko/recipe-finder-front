@@ -10,7 +10,7 @@ export default function EditRequests() {
 
   async function getEditRequests() {
     let token = localStorage.getItem("token")
-    const response = await fetch("http://localhost:4000/api/admin/get-edit-requests", {
+    const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/get-edit-requests", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

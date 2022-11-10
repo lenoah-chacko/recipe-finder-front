@@ -20,6 +20,7 @@ import ProtectedFromAdminRoutes from './components/admin/authServices/protectedF
 import AdminAddRecipe from './components/admin/recipeOperations/addRecipeAdmin/addRecipeAdmin';
 import AuthService from './components/admin/authServices/authService';
 import UnprotectedRoutes from './components/admin/authServices/unprotectedRoutes'
+import Footer from './components/common/footer/footer';
 function App() {
   const [auth, setAuth] = useState("neutral")
 
@@ -76,6 +77,7 @@ function App() {
         </Route>
 
       </Routes>
+      {/* <Footer></Footer> */}
     </div >
   );
 }

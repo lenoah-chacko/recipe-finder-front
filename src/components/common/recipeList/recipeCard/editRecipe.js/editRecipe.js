@@ -73,7 +73,7 @@ export default function EditRecipe(
 
     async function suggestEdit(req) {
         console.log("suggesting edit", req)
-        const response = await fetch("http://localhost:4000/api/edit-request", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/edit-request", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ export default function EditRecipe(
     async function submitEdit(req) {
         console.log("editing recipe", req)
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/edit-recipe", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/edit-recipe", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

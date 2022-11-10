@@ -38,7 +38,7 @@ export default function Login({setAuth}) {
     }
     async function Login() {
         var request = { 'username': valueUsername, 'password': valuePassword }
-        const response = await fetch('http://localhost:4000/api/login', {
+        const response = await fetch('https://recipe-finder24.herokuapp.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json' // The type of data you're sending
@@ -51,11 +51,11 @@ export default function Login({setAuth}) {
             setInvalidCred(false);
             localStorage.setItem("token", data.token);
             setAuth("authorized")
+            navigate('/dashboard')
         }
         else {
             setInvalidCred(true);
         }
-        navigate('/dashboard')
     }
 
     //add user input validation buha
@@ -77,10 +77,10 @@ export default function Login({setAuth}) {
 
                                     <div className="fs-5 mt-5 mb-2 fw-bold">Username</div>
                                     <MDBInput wrapperClass='mb-4' label='Username' type='username' onChange={handleChangeUsername} value={valueUsername} size="lg" />
-                                    {(valueUsername === '' && showUsernameWarning) && <span className="text-danger">Please enter valid username</span>}
+                                    {(valueUsername === '' && showUsernameWarning) && <span className="text-danger">Please enter a valid username</span>}
                                     <div className="fs-5 mb-2 fw-bold">Password</div>
                                     <MDBInput wrapperClass='mb-4' label='Password' type='password' onChange={handleChangePassword} value={valuePassword} size="lg" />
-                                    {(valuePassword === '' && showPassWarning) && <span className="text-danger">Please enter valid password</span>}
+                                    {(valuePassword === '' && showPassWarning) && <span className="text-danger">Please enter a valid password</span>}
 
                                     {invalidCred && <div className="alert alert-danger" role="alert">
                                         Incorrect Email/Password

@@ -1,6 +1,6 @@
 async function verifyToken(token) {
     
-    const response = await fetch('http://localhost:4000/api/verify-login', {
+    const response = await fetch('https://recipe-finder24.herokuapp.com/api/verify-login', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json', // The type of data you're sending

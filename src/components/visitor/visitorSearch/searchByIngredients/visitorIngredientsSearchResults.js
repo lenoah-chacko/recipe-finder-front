@@ -20,7 +20,7 @@ export default function IngredientsSearchResults() {
 
   async function search(req){
     console.log("search",req)
-    const response = await fetch("http://localhost:4000/api/search-ingredients",{
+    const response = await fetch("https://recipe-finder24.herokuapp.com/api/search-ingredients",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json'

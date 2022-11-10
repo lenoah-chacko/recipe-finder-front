@@ -62,7 +62,7 @@ export default function AdminAddRecipe() {
     async function addRecipe(req){
         // console.log("adding",req)
         let token=localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/add-recipe",{
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/add-recipe",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json',

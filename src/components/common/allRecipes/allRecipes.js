@@ -11,7 +11,7 @@ export default function AllRecipes({auth}) {
       getRecipes({"page":currentPage})
   },[currentPage])
   async function getRecipes(req){
-      const response = await fetch("http://localhost:4000/api/get-recipes",{
+      const response = await fetch("https://recipe-finder24.herokuapp.com/api/get-recipes",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export default function AllRecipes({auth}) {
         <div id="allRecipes" className="jumbotron">
           <div className="px-5">
               <h1 className="display-4">All Recipes</h1>
-              <p className="lead">List of all recipes approved by RecipeFinder©</p>
+              <p className="lead">List of all recipes approved by RecipeFinder™</p>
               <hr className='my-4' style={{background: 'gray',height: '3px'}}/>          
               <div className="lead">
                 <div className="row">

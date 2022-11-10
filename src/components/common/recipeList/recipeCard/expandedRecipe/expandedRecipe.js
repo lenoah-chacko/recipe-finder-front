@@ -17,7 +17,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
     async function approveAddRecipe(req) {
         console.log("adding", req)
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/approve-add", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/approve-add", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
     async function approveEditRequest(req) {
         console.log("adding edit", req)
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/approve-edit", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/approve-edit", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
     async function rejectAddRequest(req) {
         console.log("removing add", req)
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/reject-add", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/reject-add", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
     async function rejectEditRequest(req) {
         console.log("removing edit", req)
         let token=localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/reject-edit", {
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/reject-edit", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
     async function deleteRecipe(req){
         console.log("deleting async", req)
         let token = localStorage.getItem("token")
-        const response = await fetch("http://localhost:4000/api/admin/delete-recipe",{
+        const response = await fetch("https://recipe-finder24.herokuapp.com/api/admin/delete-recipe",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
 
                             </div>}
                             {(type === "addRequest" || type === "editsOnly") && <div>
-                                <button type="button" className="btn btn-secondary darkgreen mr-2" onClick={() => { accept() }} data-dismiss="modal">Accept</button>
+                                <button type="button" className="btn btn-warning text-dark darkgreen mr-2" onClick={() => { accept() }} data-dismiss="modal">Accept</button>
                                 <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => { reject() }}>Reject</button>
                             </div>}
                         </div>
