@@ -30,7 +30,7 @@ function handleLogout(){
     <div className="img-fluid main-logo"/>
   </NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
+    <i class="fas fa-bars"></i>
   </button>
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -57,7 +57,7 @@ function handleLogout(){
         {auth==="authorized"?
               <NavLink to='/admin/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
                                                                                         :"nav-link"}}>
-                Suggest a Recipe
+                Add a Recipe
               </NavLink>
               :auth==="unauthorized"&&<NavLink to='/add-recipe' className={({isActive})=>{return isActive?"nav-link active"
                                                                                   :"nav-link"}}>

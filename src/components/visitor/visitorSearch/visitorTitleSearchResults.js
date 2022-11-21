@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import RecipeList from '../../common/recipeList/recipeList'
 
-export default function TitleSearchResults() {
+export default function TitleSearchResults({auth}) {
   const navigate=useNavigate()
   const [recipes,setRecipes]=useState([])
   const [currentPage,setCurrentPage]=useState(0)
@@ -89,7 +89,7 @@ function nextPage(){
                   </li>
               </ul>
             </nav>
-            <RecipeList recipes={recipes} type={"search"}></RecipeList>
+            <RecipeList recipes={recipes} type={"search"} auth={auth}></RecipeList>
         </div>
     </div>
   )

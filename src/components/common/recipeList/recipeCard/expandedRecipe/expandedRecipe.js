@@ -2,7 +2,7 @@ import EditRecipe from '../editRecipe.js/editRecipe'
 import './expandedRecipe.css'
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, index}) {
+export default function ExpandedRecipe({auth, showEditReqSuccessToastMessage, showDeletedToastMessage,showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type, index}) {
 
     function accept() {
         if (type === "addRequest") {
@@ -186,7 +186,18 @@ export default function ExpandedRecipe({auth, showDeletedToastMessage,showAddSuc
                     </div>
                 </div>
             </div>
-            <EditRecipe _id={_id} author={author} dish={dish} ingredients={ingredients} lastEdited={lastEdited} preparation={preparation} prepTime={prepTime} veg={veg} auth={auth} index={index}></EditRecipe>
+            <EditRecipe 
+            showEditReqSuccessToastMessage={showEditReqSuccessToastMessage} 
+            _id={_id} 
+            author={author} 
+            dish={dish} 
+            ingredients={ingredients} 
+            lastEdited={lastEdited} 
+            preparation={preparation} 
+            prepTime={prepTime} 
+            veg={veg} 
+            auth={auth} 
+            index={index}/>
         </>
     )
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ExpandedRecipe from './expandedRecipe/expandedRecipe';
 import './recipeCard.css'
 
-export default function RecipeCard({ auth, showDeletedToastMessage, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
+export default function RecipeCard({ auth, showEditReqSuccessToastMessage, showDeletedToastMessage, showAddSuccessToastMessage, showAddRejectionToastMessage, showEditSuccessToastMessage, showEditRejectionToastMessage, removeAllRecipe, removeSearchRecipe, removeAddRecipe, removeEditRecipe, org_id, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, type }) {
     const [ingredientCutoff, setIngredientCutoff] = useState(4)
     const navigate=useNavigate()
     const[dateIST,setDateIST]=useState((new Date(lastEdited).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata'})))
@@ -101,6 +101,7 @@ export default function RecipeCard({ auth, showDeletedToastMessage, showAddSucce
                 showEditRejectionToastMessage={showEditRejectionToastMessage}
                 showAddSuccessToastMessage={showAddSuccessToastMessage}
                 showAddRejectionToastMessage={showAddRejectionToastMessage}
+                showEditReqSuccessToastMessage={showEditReqSuccessToastMessage}
                 removeAllRecipe={removeAllRecipe}
                 removeSearchRecipe={removeSearchRecipe}
                 removeAddRecipe={removeAddRecipe}

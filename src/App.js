@@ -67,8 +67,8 @@ function App() {
           <Route path='/login' element={<Login setAuth={setAuth} />}></Route>
           <Route path='/find' element={<VisitorSearch />}></Route>
           <Route path='/add-recipe' authorizeUser={authorizeUser} element={<Submission />}></Route>
-          <Route path='/search/title' element={<VisitorTitleSearchResults />}></Route>
-          <Route path='/search/ingredients' element={<VisitorIngredientsSearchResults />}></Route>
+          <Route path='/search/title' element={<VisitorTitleSearchResults auth={auth} />}></Route>
+          <Route path='/search/ingredients' element={<VisitorIngredientsSearchResults auth={auth} />}></Route>
         </Route>
         <Route element={<UnprotectedRoutes authorizeUser={authorizeUser} setAuth={setAuth} checkAuth={checkAuth}/>}>
           <Route path='/all-recipes' authorizeUser={authorizeUser} element={<AllRecipes auth={auth}/>}></Route>

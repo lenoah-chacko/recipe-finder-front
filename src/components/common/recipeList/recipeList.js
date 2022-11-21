@@ -39,6 +39,13 @@ export default function RecipeList({auth, removeAllRecipe, removeSearchRecipe, r
         });
     };
 
+    function showEditReqSuccessToastMessage(){
+        console.log("Edit req zuccess")
+        toast.success('Edit request sent!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
 
   return (
     <div>
@@ -67,6 +74,7 @@ export default function RecipeList({auth, removeAllRecipe, removeSearchRecipe, r
                                           showEditRejectionToastMessage={showEditRejectionToastMessage}
                                           showAddSuccessToastMessage={showAddSuccessToastMessage}
                                           showAddRejectionToastMessage={showAddRejectionToastMessage}
+                                          showEditReqSuccessToastMessage={showEditReqSuccessToastMessage}
                                           auth={auth}></RecipeCard>
                                     </div>
                                   ))

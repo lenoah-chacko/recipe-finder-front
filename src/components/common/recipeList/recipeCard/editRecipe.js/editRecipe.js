@@ -1,9 +1,9 @@
 import '../expandedRecipe/expandedRecipe.css'
 import { MDBInput } from 'mdb-react-ui-kit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function EditRecipe(
-    {setRecipe, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, auth}) {
+    {showEditReqSuccessToastMessage, _id, author, dish, ingredients, lastEdited, preparation, prepTime, veg, auth}) {
 
     const [ingredient, setIngredient] = useState("")
     const [_author, setAuthor] = useState(author)
@@ -13,6 +13,14 @@ export default function EditRecipe(
     const [_prepTime, setPrepTime] = useState(prepTime)
     const [_veg, setVeg] = useState(veg)
 
+    useEffect(() => {
+        setAuthor(author);
+        setDish(dish);
+        setIngredients(ingredients);
+        setPreparation(preparation);
+        setPrepTime(prepTime);
+        setVeg(veg);
+    }, [author, dish, ingredients, preparation, prepTime, veg])
 
     function handleAuthor(e) {
         console.log(e.target.value)
@@ -21,10 +29,6 @@ export default function EditRecipe(
     function handleDish(e) {
         console.log(e.target.value)
         setDish(e.target.value)
-    }
-
-    function handleIngredients(e) {
-        setIngredients(e.target.value)
     }
 
     function handlePreparation(e) {
@@ -43,12 +47,12 @@ export default function EditRecipe(
 
     function handleIngredient(e) {
         setIngredient(e.target.value)
-        console.log(e)
+        console.log(e.target.value)
     }
     function addIngredient(e) {
         console.log("event", e.type, "key", e.key)
         if (e.type === "click" || (e.type === "keydown" && e.key === 'Enter')) {
-            handleIngredients([...ingredients, ingredient])
+            setIngredients([..._ingredients, ingredient])
             setIngredient("")
         }
     }
@@ -65,6 +69,7 @@ export default function EditRecipe(
         const req = { "_id": _id, "dish": _dish, "ingredients": _ingredients, "preparation": _preparation, "prepTime": _prepTime, "author": _author, "veg": _veg }
         if (auth === "unauthorized") {
             suggestEdit(req)
+            showEditReqSuccessToastMessage()
         }
         else if (auth === "authorized") {
             submitEdit(req)
