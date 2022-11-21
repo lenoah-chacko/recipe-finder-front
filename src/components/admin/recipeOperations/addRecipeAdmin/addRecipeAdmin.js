@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminAddRecipe() {
+    const [showIngredientsWarning,setShowIngredientsWarning]=useState(false)
     const [ingredients,setIngredients]=useState([])
 
     const [title,setTitle]=useState("")
@@ -14,7 +15,19 @@ export default function AdminAddRecipe() {
         setTitle(e.target.value)
         console.log(e)
     }
+    const [showTitleWarning,setShowTitleWarning]=useState(false)
+    function handleTitle(e){
+        setTitle(e.target.value)
+        console.log(e)
+        setShowTitleWarning(false)
+    }
     const [preparation,setPreparation]=useState("")
+    const [showPreparationWarning,setShowPreparationWarning]=useState(false)
+    function handlePreparation(e){
+        setPreparation(e.target.value)
+        console.log(e)
+        setShowPreparationWarning(false)
+    }
     function handlePreparation(e){
         setPreparation(e.target.value)
         console.log(e)
@@ -25,6 +38,13 @@ export default function AdminAddRecipe() {
         console.log(e)
     }
     const [prepTime,setPrepTime]=useState("")
+    const [showPrepTimeWarning,setShowPrepTimeWarning]=useState(false)
+    function handlePrepTime(e){
+        setPrepTime(e.target.value)
+        console.log(e)
+        setShowPrepTimeWarning(false)
+    }
+
     function handlePrepTime(e){
         setPrepTime(e.target.value)
         console.log(e)
@@ -45,6 +65,19 @@ export default function AdminAddRecipe() {
     }
 
     function submit(){
+        if(title==='' || ingredients.length===0 || preparation==='' || prepTime==='')
+        {
+            setShowTitleWarning(true)
+            setShowIngredientsWarning(true)
+            setShowPreparationWarning(true)
+            setShowPrepTimeWarning(true)
+            return
+        }else{
+            setShowTitleWarning(false)
+            setShowIngredientsWarning(false)
+            setShowPreparationWarning(false)
+            setShowPrepTimeWarning(false)
+        }
         addRecipe({
             "dish":title,
             "author":"RecipeFinder",
@@ -98,6 +131,7 @@ export default function AdminAddRecipe() {
                             <div className="fs-3 fw-lighter text-center">Add a Recipe</div>                           
                             <div className="mb-2 fw-bold">Title</div>
                             <MDBInput value={title} id="titleInput" onChange={(e)=>{handleTitle(e)}} placeholder="Dish's name" wrapperClass='mb-4' type='title' size="lg"/>
+                            {(title === '' && showTitleWarning) && <span className="text-danger">Please enter a valid Title</span>}
                             <div className='mb-2 mx-auto'>
                                 <div className="d-inline">
                                     <input className="radio mr-1" type="radio" id="veg" name="food_type" value="veg" checked />
@@ -132,16 +166,19 @@ export default function AdminAddRecipe() {
                             </div>
                             <div className="row">
                                 <div className="col-md-10 col-12">
-                                <MDBInput value={ingredient} id="ingredientsInput" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4' value={ingredient}/>
+                                <MDBInput value={ingredient} id="ingredientsInput" onChange={(e)=>{handleIngredient(e)}} placeholder="Enter an ingredient then click Add or hit Enter" onKeyDown={(e)=>{addIngredient(e)}} wrapperClass='mb-4'/>
                                 </div>
                                 <div className="col-md-2 col-8 mx-auto mb-4">
                                     <div className="btn btn-warning text-dark w-100" onClick={(e)=>{addIngredient(e)}}>Add</div>
                                 </div>
                             </div>
+                            {(ingredients.length===0 && showIngredientsWarning) && <span className="text-danger">Please enter some ingredients</span>}
                             <div className="mb-2 fw-bold">Preparation Time</div>
                             <MDBInput value={prepTime} id="prepTimeInput" onChange={(e)=>{handlePrepTime(e)}} placeholder="Time it would take to prepare the dish" type='title' size="lg"/>
+                            {(prepTime === '' && showPrepTimeWarning) && <span className="text-danger">Please enter a valid duration</span>}
                             <div className="mb-2 mt-4 fw-bold">Preparation</div>
                             <MDBTextArea value={preparation} rows={3} id="preparationInput" placeholder="Steps to prepare the dish" onChange={(e)=>{handlePreparation(e)}} />
+                            {(preparation === '' && showPreparationWarning) && <span className="text-danger">Please enter a valid procedure</span>}
                             <div className='d-flex flex-row mt-2'></div>
                             <div className="row">
                                 <div className="col-10 mx-auto">

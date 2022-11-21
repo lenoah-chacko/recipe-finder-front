@@ -60,7 +60,7 @@ export default function Submission() {
     }
 
     function submit(){
-        if(title==='' || author==='' || ingredients===[] || preparation==='' || prepTime==='')
+        if(title==='' || author==='' || ingredients.length===0 || preparation==='' || prepTime==='')
         {
             setShowTitleWarning(true)
             setShowAuthorWarning(true)
